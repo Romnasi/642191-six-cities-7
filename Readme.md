@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Роман Гольцман](https://up.htmlacademy.ru/react/7/user/642191).
-* Наставник: [Юра Зубач](https://htmlacademy.ru/profile/id95078).
+* Наставник: [Алексей Балесный](https://htmlacademy.ru/profile/id221665).
 
 ---
 

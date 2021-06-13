@@ -8,7 +8,7 @@ function PlaceCard({name, type, price, photo, isPremium, isBookmark, rating}) {
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={`./../img/${photo}.jpg`} width="260" height="200" alt="Place" />
+          <img className="place-card__image" src={`img/${photo}.jpg`} width="260" height="200" alt="Place" />
         </a>
       </div>
       <div className="place-card__info">

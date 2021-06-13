@@ -1,11 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {AppRoute} from '../../const';
 import Main from '../main/main';
+import SignIn from '../sign-in/sign-in';
+import Favorites from '../favorites/favorites';
+import Room from '../room/Room';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function App(props) {
   const {cardData} = props;
   return (
-    <Main cardData={cardData}/>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path={AppRoute.ROOT}>
+          <Main cardData={cardData} />
+        </Route>
+        <Route exact path={AppRoute.LOGIN}>
+          <SignIn />
+        </Route>
+        <Route exact path={AppRoute.FAVORITES}>
+          <Favorites />
+        </Route>
+        <Route exact path={AppRoute.DEV_ROOM}>
+          <Room />
+        </Route>
+        <Route>
+          <NotFoundScreen />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 

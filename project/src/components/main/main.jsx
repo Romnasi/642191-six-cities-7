@@ -12,7 +12,7 @@ function Main(props) {
           <div className="header__wrapper">
             <div className="header__left">
               <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="./../img/logo.svg" alt="6 cities logo" width="81" height="41" />
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </a>
             </div>
             <nav className="header__nav">
@@ -94,17 +94,7 @@ function Main(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {cardData.map((
-                  {
-                    id,
-                    name,
-                    type,
-                    price,
-                    photo,
-                    isPremium,
-                    isBookmark,
-                    rating,
-                  }) => <PlaceCard key={id.toString()} name={name} type={type} price={price} photo={photo} isPremium={isPremium} isBookmark={isBookmark} rating={rating} />)}
+                {cardData.map(({id, ...other}) => <PlaceCard key={id.toString()} {...other} />)}
               </div>
             </section>
             <div className="cities__right-section">

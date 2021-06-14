@@ -5,7 +5,7 @@ import {AppRoute} from '../../const';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
-import Room from '../room/Room';
+import Room from '../room/room';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function App(props) {

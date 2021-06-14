@@ -3,4 +3,5 @@ export const AppRoute = {
   LOGIN: '/login',
   FAVORITES: '/favorites',
   DEV_ROOM: '/dev-room',
+  OFFER: '/offer/:id',
 };

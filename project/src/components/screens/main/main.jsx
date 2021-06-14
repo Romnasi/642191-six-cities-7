@@ -1,7 +1,7 @@
 import React from 'react';
-import PlaceCard from '../place-card/place-card';
+import PlaceCard from '../../place-card/place-card';
 import PropTypes from 'prop-types';
-import Header from '../header/header';
+import Header from '../../header/header';
 
 function Main(props) {
   const {cardData} = props;

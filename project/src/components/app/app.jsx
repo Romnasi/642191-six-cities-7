@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import Main from '../main/main';
-import SignIn from '../sign-in/sign-in';
-import Favorites from '../favorites/favorites';
-import Room from '../room/room';
+import Main from '../screens/main/main';
+import SignIn from '../screens/sign-in/sign-in';
+import Favorites from '../screens/favorites/favorites';
+import Room from '../screens/room/room';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function App(props) {

@@ -93,7 +93,6 @@ Main.propTypes = {
       photo: PropTypes.string.isRequired,
       isPremium: PropTypes.bool.isRequired,
       isBookmark: PropTypes.bool.isRequired,
-      number: PropTypes.number.isRequired,
     }),
   ),
 };

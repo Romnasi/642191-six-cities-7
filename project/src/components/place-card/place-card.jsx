@@ -33,7 +33,11 @@ function PlaceCard({cardType, name, type, price, previewImage, isPremium, isFavo
 
   return (
     <article className={`${ScreenClass.ARTICLE[cardType]} place-card`}>
-      {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
+      {
+        cardType === 'MAIN'
+        && isPremium
+        && <div className="place-card__mark"><span>Premium</span></div>
+      }
       <div className={`${ScreenClass.IMAGE_WRAPPER[cardType]} place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src={`img/${previewImage}`} width={Preview.WIDTH[cardType]} height={Preview.HEIGHT[cardType]} alt="Place" />

@@ -4,7 +4,7 @@ import Header from '../../header/header';
 import PlaceCard from '../../place-card/place-card';
 
 
-function Room(props) {
+function Offer(props) {
   const {cardData} = props;
 
   return (
@@ -238,7 +238,7 @@ function Room(props) {
   );
 }
 
-Room.propTypes = {
+Offer.propTypes = {
   cardData: PropTypes.arrayOf(
     PropTypes.shape({
       city: PropTypes.shape({
@@ -256,4 +256,4 @@ Room.propTypes = {
 };
 
 
-export default Room;
+export default Offer;

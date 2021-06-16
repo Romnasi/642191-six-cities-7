@@ -5,7 +5,7 @@ import {AppRoute} from '../../const';
 import Main from '../screens/main/main';
 import SignIn from '../screens/sign-in/sign-in';
 import Favorites from '../screens/favorites/favorites';
-import Room from '../screens/room/room';
+import Offer from '../screens/offer/offer';
 import NotFoundScreen from '../screens/not-found-screen/not-found-screen';
 
 
@@ -26,7 +26,7 @@ function App(props) {
           <Favorites cardData={favoritesCards} />
         </Route>
         <Route exact path={AppRoute.DEV_ROOM}>
-          <Room cardData={cardData.slice(0, 3)} />
+          <Offer cardData={cardData.slice(0, 3)} />
         </Route>
         <Route>
           <NotFoundScreen />

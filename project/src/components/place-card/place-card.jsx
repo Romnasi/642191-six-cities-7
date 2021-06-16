@@ -6,24 +6,27 @@ const ScreenClass = {
   ARTICLE: {
     MAIN: 'cities__place-card',
     FAVORITES: 'favorites__card',
+    OFFER: 'near-places__card',
   },
   IMAGE_WRAPPER: {
     MAIN: 'cities__image-wrapper',
     FAVORITES: 'favorites__image-wrapper',
+    OFFER: 'near-places__image-wrapper',
   },
-}
+};
 
 const Preview = {
   WIDTH: {
     MAIN: 260,
     FAVORITES: 150,
+    OFFER: 260,
   },
   HEIGHT: {
     MAIN: 200,
     FAVORITES: 110,
+    OFFER: 200,
   },
-}
-
+};
 
 
 function PlaceCard({cardType, name, type, price, previewImage, isPremium, isFavorite, rating}) {
@@ -36,9 +39,10 @@ function PlaceCard({cardType, name, type, price, previewImage, isPremium, isFavo
           <img className="place-card__image" src={`img/${previewImage}`} width={Preview.WIDTH[cardType]} height={Preview.HEIGHT[cardType]} alt="Place" />
         </a>
       </div>
-      <div className={`${cardType === 'FAVORITES'
+      <div className={cardType === 'FAVORITES'
         ? 'favorites__card-info place-card__info'
-        : 'place-card__info'}`}>
+        : 'place-card__info'}
+      >
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>

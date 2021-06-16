@@ -8,14 +8,16 @@ function Favorites (props) {
   const {cardData} = props;
 
   const sortByCitiesData = Object.entries(cardData.reduce((total, cityData) => {
-      const {city: {name}} = cityData;
+    const {city: {name}} = cityData;
 
-      !total[name]
-        ? total[name] = [cityData]
-        : total[name].push(cityData);
+    if (!total[name]) {
+      total[name] = [cityData];
+    } else {
+      total[name].push(cityData);
+    }
 
-      return total;
-    }, {}));
+    return total;
+  }, {}));
 
   return (
     <div className="page">
@@ -27,27 +29,29 @@ function Favorites (props) {
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               {sortByCitiesData
-                .map(([city, cityData], i) =><li className="favorites__locations-items" key={i}>
-                  <div className="favorites__locations locations locations--current">
-                    <div className="locations__item">
-                      <a className="locations__item-link" href="#">
-                        <span>{city}</span>
-                      </a>
+                .map(([city, cityData], i) =>(
+                  <li className="favorites__locations-items" key={i.toString()}>
+                    <div className="favorites__locations locations locations--current">
+                      <div className="locations__item">
+                        <a className="locations__item-link" href="#">
+                          <span>{city}</span>
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                  <div className="favorites__places">
+                    <div className="favorites__places">
 
-                  </div>
-                  <div className="favorites__places">
-                    {cityData
-                      .map((
-                        {
-                          id,
-                          ...other
-                        },
-                      ) => <PlaceCard key={id.toString()} cardType={'FAVORITES'} {...other} />)}
-                  </div>
-              </li>)}
+                    </div>
+                    <div className="favorites__places">
+                      {cityData
+                        .map((
+                          {
+                            id,
+                            ...other
+                          },
+                        ) => <PlaceCard key={id.toString()} cardType={'FAVORITES'} {...other} />)}
+                    </div>
+                  </li>
+                ))}
             </ul>
           </section>
         </div>

@@ -26,7 +26,7 @@ function App(props) {
           <Favorites cardData={favoritesCards} />
         </Route>
         <Route exact path={AppRoute.DEV_ROOM}>
-          <Room />
+          <Room cardData={cardData.slice(0, 3)} />
         </Route>
         <Route>
           <NotFoundScreen />

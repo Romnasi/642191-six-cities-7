@@ -6,10 +6,13 @@ import Main from '../screens/main/main';
 import SignIn from '../screens/sign-in/sign-in';
 import Favorites from '../screens/favorites/favorites';
 import Room from '../screens/room/room';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
+import NotFoundScreen from '../screens/not-found-screen/not-found-screen';
+
 
 function App(props) {
   const {cardData} = props;
+  const favoritesCards = cardData.filter(({isFavorite}) => isFavorite);
+
   return (
     <BrowserRouter>
       <Switch>
@@ -20,7 +23,7 @@ function App(props) {
           <SignIn />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <Favorites />
+          <Favorites cardData={favoritesCards} />
         </Route>
         <Route exact path={AppRoute.DEV_ROOM}>
           <Room />
@@ -40,9 +43,9 @@ App.propTypes = {
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
-      photo: PropTypes.string.isRequired,
+      previewImage: PropTypes.string.isRequired,
       isPremium: PropTypes.bool.isRequired,
-      isBookmark: PropTypes.bool.isRequired,
+      isFavorite: PropTypes.bool.isRequired,
       rating: PropTypes.number.isRequired,
     })),
 };

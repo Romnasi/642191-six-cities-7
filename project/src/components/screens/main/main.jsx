@@ -3,6 +3,9 @@ import PlaceCard from '../../place-card/place-card';
 import PropTypes from 'prop-types';
 import Header from '../../header/header';
 
+// Позже заменим состоянием
+const currentCity = 'Amsterdam';
+
 function Main(props) {
   const {cardData} = props;
 
@@ -69,7 +72,14 @@ function Main(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {cardData.map(({id, ...other}) => <PlaceCard key={id.toString()} {...other} />)}
+                {cardData
+                  .filter(({city: { name }}) => name === currentCity)
+                  .map((
+                    {
+                      id,
+                      ...other
+                    },
+                  ) => <PlaceCard key={id.toString()} cardType={'MAIN'} {...other} />)}
               </div>
             </section>
             <div className="cities__right-section">
@@ -86,13 +96,16 @@ function Main(props) {
 Main.propTypes = {
   cardData: PropTypes.arrayOf(
     PropTypes.shape({
+      city: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      }),
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       type: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
-      photo: PropTypes.string.isRequired,
+      previewImage: PropTypes.string.isRequired,
       isPremium: PropTypes.bool.isRequired,
-      isBookmark: PropTypes.bool.isRequired,
+      isFavorite: PropTypes.bool.isRequired,
     }),
   ),
 };

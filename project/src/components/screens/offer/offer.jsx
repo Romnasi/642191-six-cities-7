@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Header from '../../header/header';
-import PlaceCard from '../../place-card/place-card';
+import Card from '../../card/card';
+import {cardDataPropTypes} from '../../../const';
 
 
 function Offer(props) {
@@ -229,7 +229,7 @@ function Offer(props) {
                     id,
                     ...other
                   },
-                ) => <PlaceCard key={id.toString()} cardType={'OFFER'} {...other} />)}
+                ) => <Card key={id.toString()} cardType={'OFFER'} {...other} />)}
             </div>
           </section>
         </div>
@@ -238,22 +238,6 @@ function Offer(props) {
   );
 }
 
-Offer.propTypes = {
-  cardData: PropTypes.arrayOf(
-    PropTypes.shape({
-      city: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-      }),
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      previewImage: PropTypes.string.isRequired,
-      isPremium: PropTypes.bool.isRequired,
-      isFavorite: PropTypes.bool.isRequired,
-    }),
-  ),
-};
-
+Offer.propTypes = cardDataPropTypes;
 
 export default Offer;

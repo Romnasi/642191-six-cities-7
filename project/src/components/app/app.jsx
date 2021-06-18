@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, cardDataPropTypes} from '../../const';
 import Main from '../screens/main/main';
 import SignIn from '../screens/sign-in/sign-in';
 import Favorites from '../screens/favorites/favorites';
@@ -36,18 +35,6 @@ function App(props) {
   );
 }
 
-App.propTypes = {
-  cardData: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      previewImage: PropTypes.string.isRequired,
-      isPremium: PropTypes.bool.isRequired,
-      isFavorite: PropTypes.bool.isRequired,
-      rating: PropTypes.number.isRequired,
-    })),
-};
+App.propTypes = cardDataPropTypes;
 
 export default App;

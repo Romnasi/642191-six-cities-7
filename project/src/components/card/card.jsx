@@ -1,6 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {cardDataPropTypes} from '../../const';
 
+const Rating = {
+  MAX_STYLE_VALUE: 100,
+  MAX_DIGIT_VALUE: 5,
+};
 
 const ScreenClass = {
   ARTICLE: {
@@ -29,7 +33,8 @@ const Preview = {
 };
 
 
-function PlaceCard({cardType, name, type, price, previewImage, isPremium, isFavorite, rating}) {
+function Card({cardType, title, type, price, previewImage, isPremium, isFavorite, rating}) {
+  const convertedRating = Rating.MAX_STYLE_VALUE / Rating.MAX_DIGIT_VALUE * rating;
 
   return (
     <article className={`${ScreenClass.ARTICLE[cardType]} place-card`}>
@@ -63,14 +68,14 @@ function PlaceCard({cardType, name, type, price, previewImage, isPremium, isFavo
           <div className="place-card__stars rating__stars">
             <span
               style={{
-                width: `${rating}%`,
+                width: `${convertedRating}%`,
               }}
             />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{name}</a>
+          <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -79,16 +84,7 @@ function PlaceCard({cardType, name, type, price, previewImage, isPremium, isFavo
 }
 
 
-PlaceCard.propTypes = {
-  cardType: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  previewImage: PropTypes.string.isRequired,
-  isPremium: PropTypes.bool.isRequired,
-  isFavorite: PropTypes.bool.isRequired,
-  rating: PropTypes.number.isRequired,
-};
+Card.propTypes = cardDataPropTypes;
 
 
-export default PlaceCard;
+export default Card;

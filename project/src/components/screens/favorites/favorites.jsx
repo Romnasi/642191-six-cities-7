@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Header from '../../header/header';
-import PlaceCard from '../../place-card/place-card';
+import Card from '../../card/card';
+import {cardDataPropTypes} from '../../../const';
 
 
 function Favorites (props) {
@@ -48,7 +48,7 @@ function Favorites (props) {
                             id,
                             ...other
                           },
-                        ) => <PlaceCard key={id.toString()} cardType={'FAVORITES'} {...other} />)}
+                        ) => <Card key={id.toString()} cardType={'FAVORITES'} {...other} />)}
                     </div>
                   </li>
                 ))}
@@ -66,19 +66,7 @@ function Favorites (props) {
 }
 
 
-Favorites.propTypes = {
-  cardData: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      previewImage: PropTypes.string.isRequired,
-      isPremium: PropTypes.bool.isRequired,
-      isFavorite: PropTypes.bool.isRequired,
-      rating: PropTypes.number.isRequired,
-    })),
-};
+Favorites.propTypes = cardDataPropTypes;
 
 
 export default Favorites;

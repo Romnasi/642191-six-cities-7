@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from '../../header/header';
 import Card from '../../card/card';
-import {cardDataPropTypes} from '../../../const';
+import offerProp from '../../screens/main/offers.prop';
 
 
 function Favorites (props) {
-  const {cardData} = props;
+  const {offers} = props;
 
-  const sortByCitiesData = Object.entries(cardData.reduce((total, cityData) => {
+  const sortByCitiesData = Object.entries(offers.reduce((total, cityData) => {
     const {city: {name}} = cityData;
 
     if (!total[name]) {
@@ -66,7 +66,9 @@ function Favorites (props) {
 }
 
 
-Favorites.propTypes = cardDataPropTypes;
+Favorites.propTypes = {
+  offers: offerProp,
+};
 
 
 export default Favorites;

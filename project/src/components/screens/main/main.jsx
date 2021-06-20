@@ -1,11 +1,11 @@
 import React from 'react';
 import Header from '../../header/header';
-import {cardDataPropTypes} from '../../../const';
 import OfferList from '../../offer-list/offer-list';
+import offerProp from '../main/offers.prop';
 
 
 function Main(props) {
-  const {cardData} = props;
+  const {offers} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -69,7 +69,7 @@ function Main(props) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <OfferList cardData={cardData} />
+              <OfferList currentCity={'Amsterdam'} offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"/>
@@ -82,6 +82,8 @@ function Main(props) {
   );
 }
 
-Main.propTypes = cardDataPropTypes;
+Main.propTypes = {
+  offers: offerProp,
+};
 
 export default Main;

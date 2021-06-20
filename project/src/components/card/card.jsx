@@ -1,10 +1,8 @@
 import React from 'react';
-import {cardDataPropTypes} from '../../const';
+import PropTypes from 'prop-types';
+import {placeTypes} from '../../const';
+import {convertRating} from '../../utils/utils';
 
-const Rating = {
-  MAX_STYLE_VALUE: 100,
-  MAX_DIGIT_VALUE: 5,
-};
 
 const ScreenClass = {
   ARTICLE: {
@@ -33,11 +31,20 @@ const Preview = {
 };
 
 
-function Card({cardType, title, type, price, previewImage, isPremium, isFavorite, rating}) {
-  const convertedRating = Rating.MAX_STYLE_VALUE / Rating.MAX_DIGIT_VALUE * rating;
+function Card(props) {
+  const {cardType, title, type, price, previewImage, isPremium, isFavorite, rating, setActiveCardId, id} = props;
+
+  const ratingWidth = convertRating(rating);
+
+  function HandleCardMouseOver() {
+    setActiveCardId(id);
+  }
 
   return (
-    <article className={`${ScreenClass.ARTICLE[cardType]} place-card`}>
+    <article
+      className={`${ScreenClass.ARTICLE[cardType]} place-card`}
+      onMouseOver={cardType === 'MAIN' ? HandleCardMouseOver : undefined}
+    >
       {
         cardType === 'MAIN'
         && isPremium
@@ -68,7 +75,7 @@ function Card({cardType, title, type, price, previewImage, isPremium, isFavorite
           <div className="place-card__stars rating__stars">
             <span
               style={{
-                width: `${convertedRating}%`,
+                width: `${ratingWidth}%`,
               }}
             />
             <span className="visually-hidden">Rating</span>
@@ -84,7 +91,17 @@ function Card({cardType, title, type, price, previewImage, isPremium, isFavorite
 }
 
 
-Card.propTypes = cardDataPropTypes;
-
+Card.propTypes = {
+  cardType: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(placeTypes).isRequired,
+  price: PropTypes.number.isRequired,
+  previewImage: PropTypes.string.isRequired,
+  isPremium: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
+  rating: PropTypes.number.isRequired,
+  setActiveCardId: PropTypes.func,
+  id: PropTypes.number,
+};
 
 export default Card;

@@ -1,3 +1,5 @@
+const AVATAR_URL = 'https://i.pravatar.cc/128';
+
 export const offers = [
   {
     bedrooms: 4,
@@ -12,13 +14,13 @@ export const offers = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
-      avatarUrl: 'avatar-angelina.jpg',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 3,
       isPro: true,
       name: 'Angelina',
     },
     id: 1,
-    images: ['img/1.png', 'img/2.png'],
+    images: ['apartment-01.jpg', 'apartment-02.jpg', 'apartment-03.jpg'],
     isFavorite: false,
     isPremium: true,
     location: {
@@ -29,9 +31,9 @@ export const offers = [
     maxAdults: 4,
     previewImage: 'apartment-01.jpg',
     price: 120,
-    rating: 80,
+    rating: 4.6,
     title: 'Beautiful & luxurious apartment at great location',
-    type: 'Apartment',
+    type: 'apartment',
   },
   {
     bedrooms: 1,
@@ -46,13 +48,13 @@ export const offers = [
     description: 'I live on a lovely street that is a 15-min bike- or tram ride into the heart of Amsterdam, local shops and cafes within short walking distance, the serene Westerpark just around the corner',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Patio or balcony', 'Coffee machine', 'Hair dryer'],
     host: {
-      avatarUrl: 'avatar-angelina.jpg',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       id: 4,
       isPro: true,
       name: 'Iris',
     },
     id: 2,
-    images: ['img/1.png', 'img/2.png'],
+    images: ['room.jpg', 'studio-01.jpg', 'apartment-01.jpg', 'apartment-02.jpg', 'apartment-03.jpg', 'studio-photos.jpg'],
     isFavorite: true,
     isPremium: false,
     location: {
@@ -65,7 +67,7 @@ export const offers = [
     price: 80,
     rating: 4.9,
     title: 'Welcome to my cosy, spacious, plant-filled home',
-    type: 'Entire home',
+    type: 'hotel',
   },
   {
     bedrooms: 1,
@@ -80,13 +82,13 @@ export const offers = [
     description: 'This small but cosy studio offers all amenities you need for a stay in Amsterdam! It\'s located in the heart of the famous Jordaan district, in the old city center and within the most beautiful area of the canal belt.',
     goods: ['Waterfront', 'Kitchen', 'Microwave', 'Patio or balcony', 'Coffee machine', 'Wifi'],
     host: {
-      avatarUrl: 'avatar-angelina.jpg',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       id: 5,
       isPro: false,
       name: 'Elisabeth',
     },
     id: 3,
-    images: ['img/1.png', 'img/2.png'],
+    images: ['apartment-01.jpg', 'apartment-02.jpg', 'apartment-03.jpg'],
     isFavorite: false,
     isPremium: true,
     location: {
@@ -99,7 +101,7 @@ export const offers = [
     price: 150,
     rating: 4.6,
     title: 'Private room in guest suite hosted by Elisabeth',
-    type: 'Studio',
+    type: 'apartment',
   },
   {
     bedrooms: 2,
@@ -114,13 +116,13 @@ export const offers = [
     description: 'Beautiful and characteristic 1-room B&B studio with private bathroom, toilet and kitchenette on the second floor of an old Dutch building (1886) in vibrant neighbourhood De Pijp, central Amsterdam.',
     goods: ['Dedicated workspace', 'Refrigerator', 'Cable TV', 'Patio or balcony', 'Coffee machine', 'Microwave'],
     host: {
-      avatarUrl: 'avatar-max.jpg',
-      id: 4,
+      avatarUrl: 'img/avatar-max.jpg',
+      id: 88,
       isPro: true,
       name: 'Patrick',
     },
     id: 4,
-    images: ['img/1.png', 'img/2.png'],
+    images: ['studio-01.jpg', 'studio-photos.jpg'],
     isFavorite: true,
     isPremium: false,
     location: {
@@ -133,7 +135,7 @@ export const offers = [
     price: 230,
     rating: 4.4,
     title: 'Private room in condominium hosted by Patrick',
-    type: 'Entire home',
+    type: 'room',
   },
   {
     bedrooms: 4,
@@ -148,13 +150,13 @@ export const offers = [
     description: 'Very bright apartment located on the Da Costakade canal with amazing views. The apartment is located between the Jordaan and Oud-West, and has all you need.',
     goods: ['TV', 'Wifi', 'Washer', 'Patio or balcony', 'Waterfront'],
     host: {
-      avatarUrl: 'avatar-max.jpg',
+      avatarUrl: `${AVATAR_URL}?rnd=${Math.random()}`,
       id: 14,
       isPro: true,
       name: 'Caspar',
     },
     id: 5,
-    images: ['img/1.png', 'img/2.png'],
+    images: ['studio-01.jpg', 'studio-photos.jpg'],
     isFavorite: true,
     isPremium: true,
     location: {
@@ -167,6 +169,6 @@ export const offers = [
     price: 140,
     rating: 4.4,
     title: 'Entire apartment hosted',
-    type: 'Entire home',
+    type: 'house',
   },
 ];

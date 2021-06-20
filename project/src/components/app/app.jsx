@@ -15,25 +15,32 @@ function App(props) {
   const favoritesCards = offers.filter(({isFavorite}) => isFavorite);
   const nearPlaces = offers.slice(0, 3);
 
+  const WrappedOffer = function(props) {
+    return (
+      <Offer {...props} offers={offers} nearPlaces={nearPlaces} reviews={reviews} />
+    );
+  };
+
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Main offers={offers} />
         </Route>
+
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />
         </Route>
+
         <Route exact path={AppRoute.FAVORITES}>
           <Favorites offers={favoritesCards} />
         </Route>
-        <Route exact path={AppRoute.DEV_ROOM}>
-          <Offer
-            offers={offers}
-            nearPlaces={nearPlaces}
-            reviews={reviews}
-          />
-        </Route>
+
+        <Route
+          exact path={AppRoute.OFFER}
+          component={WrappedOffer}
+        />
+
         <Route>
           <NotFoundScreen />
         </Route>

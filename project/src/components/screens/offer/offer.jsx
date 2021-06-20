@@ -8,13 +8,17 @@ import PlaceFeatures from '../../place-features/place-features';
 import Host from '../../host/host';
 import offerProp from '../../screens/main/offers.prop';
 import reviewProp from '../../reviews/review.prop';
+import PropTypes from 'prop-types';
 
 
-const currentID = 2;
+function Offer(props) {
+  const {offers, nearPlaces, reviews, match} = props;
 
+  console.log(match.params.id)
 
-function Offer({offers, nearPlaces, reviews}) {
-  const currentPlace = offers.find(({id}) => id === currentID);
+  const currentID = match.params.id;
+
+  const currentPlace = offers.find(({id}) => id.toString() === currentID);
   const {
     images,
     type,
@@ -78,7 +82,7 @@ function Offer({offers, nearPlaces, reviews}) {
                     id,
                     ...other
                   },
-                ) => <Card key={id.toString()} cardType={'OFFER'} {...other} />)}
+                ) => <Card key={id.toString()} cardType={'OFFER'} {...other} id={id} />)}
             </div>
           </section>
 
@@ -92,6 +96,11 @@ Offer.propTypes = {
   offers: offerProp,
   nearPlaces: offerProp,
   reviews: reviewProp,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }),
 };
 
 

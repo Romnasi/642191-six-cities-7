@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {placeTypes} from '../../const';
 import {convertRating} from '../../utils/utils';
+import {Link} from 'react-router-dom';
 
 
 const ScreenClass = {
@@ -82,7 +83,7 @@ function Card(props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

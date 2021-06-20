@@ -48,7 +48,7 @@ function Favorites (props) {
                             id,
                             ...other
                           },
-                        ) => <Card key={id.toString()} cardType={'FAVORITES'} {...other} />)}
+                        ) => <Card key={id.toString()} cardType={'FAVORITES'} {...other} id={id} />)}
                     </div>
                   </li>
                 ))}

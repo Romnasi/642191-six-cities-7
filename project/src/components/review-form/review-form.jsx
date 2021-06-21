@@ -16,7 +16,7 @@ function ReviewForm() {
       <div className="reviews__rating-form form__rating">
 
         {grades.map((grade, i) => (
-          <React.Fragment key={`${i}-key-${maxRate - i}-stars`}>
+          <React.Fragment key={`${grade}-key-${maxRate - i}-stars`}>
             <input
               className="form__rating-input visually-hidden"
               name="rating"

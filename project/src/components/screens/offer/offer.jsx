@@ -9,16 +9,14 @@ import Host from '../../host/host';
 import offerProp from '../../screens/main/offers.prop';
 import reviewProp from '../../reviews/review.prop';
 import PropTypes from 'prop-types';
+import {useParams} from 'react-router-dom';
 
 
 function Offer(props) {
-  const {offers, nearPlaces, reviews, match} = props;
+  const {offers, nearPlaces, reviews} = props;
+  const currentID = useParams().id;
 
-  console.log(match.params.id)
-
-  const currentID = match.params.id;
-
-  const currentPlace = offers.find(({id}) => id.toString() === currentID);
+  const currentPlace = offers.find((offer) => offer.id.toString() === currentID);
   const {
     images,
     type,

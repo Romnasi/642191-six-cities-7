@@ -1,13 +1,19 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import OptionalLink from '../optional-link/optional-link';
+import PropTypes from 'prop-types';
+import {AppRoute} from '../../const';
 
 
-function Logo() {
+function Logo({isMainScreen}) {
   return (
-    <Link className="header__logo-link header__logo-link--active" to='/'>
+    <OptionalLink className={'header__logo-link header__logo-link--active'} isMainScreen={isMainScreen} to={AppRoute.ROOT}>
       <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-    </Link>
+    </ OptionalLink>
   );
 }
+Logo.propTypes = {
+  isMainScreen: PropTypes.bool,
+};
+
 
 export default Logo;

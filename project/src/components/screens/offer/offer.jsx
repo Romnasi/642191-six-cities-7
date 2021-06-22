@@ -80,7 +80,7 @@ function Offer(props) {
                     id,
                     ...other
                   },
-                ) => <Card key={id.toString()} cardType={'OFFER'} {...other} id={id} />)}
+                ) => <Card key={id.toString()} cardType={Screen.OFFER} {...other} id={id} />)}
             </div>
           </section>
 

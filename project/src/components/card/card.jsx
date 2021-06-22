@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {placeTypes} from '../../const';
+import {placeTypes, Screen} from '../../const';
 import {convertRating} from '../../utils/utils';
 import {Link} from 'react-router-dom';
 
@@ -33,30 +33,30 @@ const Preview = {
 
 
 function Card(props) {
-  const {cardType, title, type, price, previewImage, isPremium, isFavorite, rating, setActiveCardId, id} = props;
+  const {cardType, title, type, price, previewImage, isPremium, isFavorite, rating, onHover, id} = props;
 
   const ratingWidth = convertRating(rating);
 
-  function HandleCardMouseOver() {
-    setActiveCardId(id);
+  function handleCardMouseOver() {
+    onHover(id);
   }
 
   return (
     <article
       className={`${ScreenClass.ARTICLE[cardType]} place-card`}
-      onMouseOver={cardType === 'MAIN' ? HandleCardMouseOver : undefined}
+      onMouseEnter={cardType === Screen.MAIN ? handleCardMouseOver : undefined}
     >
       {
-        cardType === 'MAIN'
+        cardType === Screen.MAIN
         && isPremium
         && <div className="place-card__mark"><span>Premium</span></div>
       }
       <div className={`${ScreenClass.IMAGE_WRAPPER[cardType]} place-card__image-wrapper`}>
-        <a href="#">
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={`img/${previewImage}`} width={Preview.WIDTH[cardType]} height={Preview.HEIGHT[cardType]} alt="Place" />
-        </a>
+        </Link>
       </div>
-      <div className={cardType === 'FAVORITES'
+      <div className={cardType === Screen.FAVORITES
         ? 'favorites__card-info place-card__info'
         : 'place-card__info'}
       >
@@ -101,7 +101,7 @@ Card.propTypes = {
   isPremium: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,
   rating: PropTypes.number.isRequired,
-  setActiveCardId: PropTypes.func,
+  onHover: PropTypes.func,
   id: PropTypes.number,
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import goodsProp from './goods.prop';
 
 
 function Amenities({goods}) {
@@ -21,7 +21,7 @@ function Amenities({goods}) {
 }
 
 Amenities.propTypes = {
-  goods: PropTypes.array.isRequired,
+  goods: goodsProp,
 };
 
 

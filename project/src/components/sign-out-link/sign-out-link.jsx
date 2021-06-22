@@ -1,11 +1,13 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 
 function SignOutLink() {
   return (
-    <a className="header__nav-link" href="#">
+    <Link className="header__nav-link" href={AppRoute.ROOT}>
       <span className="header__signout">Sign out</span>
-    </a>
+    </Link>
   );
 }
 

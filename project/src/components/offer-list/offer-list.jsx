@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Card from '../card/card';
 import offerProp from '../screens/main/offers.prop';
 import PropTypes from 'prop-types';
+import {Screen} from '../../const';
 
 
 function OfferList(props) {
@@ -15,10 +16,10 @@ function OfferList(props) {
         .map(({id, ...other}) => (
           <Card
             key={id.toString()}
-            cardType={'MAIN'}
+            cardType={Screen.MAIN}
             {...other}
             id={id}
-            setActiveCardId={setActiveCardId}
+            onHover={setActiveCardId}
           />
         ))}
     </div>

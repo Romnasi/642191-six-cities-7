@@ -29,8 +29,8 @@ function Favorites (props) {
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               {sortByCitiesData
-                .map(([city, cityData], i) =>(
-                  <li className="favorites__locations-items" key={i.toString()}>
+                .map(([city, cityData]) =>(
+                  <li className="favorites__locations-items" key={city}>
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
                         <a className="locations__item-link" href="#">
@@ -39,16 +39,13 @@ function Favorites (props) {
                       </div>
                     </div>
                     <div className="favorites__places">
-
-                    </div>
-                    <div className="favorites__places">
                       {cityData
                         .map((
                           {
                             id,
                             ...other
                           },
-                        ) => <Card key={id.toString()} cardType={'FAVORITES'} {...other} id={id} />)}
+                        ) => <Card key={id.toString()} cardType={Screen.FAVORITES} {...other} id={id} />)}
                     </div>
                   </li>
                 ))}

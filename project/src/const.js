@@ -9,3 +9,8 @@ export const AppRoute = {
 
 export const placeTypes = ['apartment', 'room', 'house', 'hotel'];
 
+export const Screen = {
+  MAIN: 'MAIN',
+  FAVORITES: 'FAVORITES',
+  OFFER: 'OFFER',
+};

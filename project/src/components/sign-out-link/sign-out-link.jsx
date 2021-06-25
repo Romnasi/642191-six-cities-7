@@ -5,7 +5,7 @@ import {AppRoute} from '../../const';
 
 function SignOutLink() {
   return (
-    <Link className="header__nav-link" href={AppRoute.ROOT}>
+    <Link className="header__nav-link" to={AppRoute.ROOT}>
       <span className="header__signout">Sign out</span>
     </Link>
   );

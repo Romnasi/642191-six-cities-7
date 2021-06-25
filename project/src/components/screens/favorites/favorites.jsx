@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../../header/header';
 import Card from '../../card/card';
 import offerProp from '../../screens/main/offers.prop';
+import {Screen} from '../../../const';
 
 
 function Favorites (props) {

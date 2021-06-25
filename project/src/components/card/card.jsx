@@ -33,7 +33,18 @@ const Preview = {
 
 
 function Card(props) {
-  const {cardType, title, type, price, previewImage, isPremium, isFavorite, rating, onHover, id} = props;
+  const {
+    cardType,
+    title,
+    type,
+    price,
+    previewImage,
+    isPremium,
+    isFavorite,
+    rating,
+    onHover,
+    id,
+  } = props;
 
   const ratingWidth = convertRating(rating);
 
@@ -53,7 +64,13 @@ function Card(props) {
       }
       <div className={`${ScreenClass.IMAGE_WRAPPER[cardType]} place-card__image-wrapper`}>
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={`img/${previewImage}`} width={Preview.WIDTH[cardType]} height={Preview.HEIGHT[cardType]} alt="Place" />
+          <img
+            className="place-card__image"
+            src={`img/${previewImage}`}
+            width={Preview.WIDTH[cardType]}
+            height={Preview.HEIGHT[cardType]}
+            alt="Place"
+          />
         </Link>
       </div>
       <div className={cardType === Screen.FAVORITES
@@ -65,11 +82,18 @@ function Card(props) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
+          <button
+            className={
+              `place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`
+            }
+            type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
-            <span className="visually-hidden">{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
+            <span className="visually-hidden">
+              {isFavorite ? 'In bookmarks' : 'To bookmarks'}
+            </span>
           </button>
         </div>
         <div className="place-card__rating rating">

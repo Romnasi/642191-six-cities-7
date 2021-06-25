@@ -1,4 +1,9 @@
 import React from 'react';
+import {useParams} from 'react-router-dom';
+import offerProp from '../../screens/main/offers.prop';
+import reviewProp from '../../reviews/review.prop';
+import PropTypes from 'prop-types';
+import {Screen} from '../../../const';
 import Header from '../../header/header';
 import Card from '../../card/card';
 import Gallery from '../../gallery/gallery';
@@ -6,10 +11,6 @@ import Amenities from '../../amenities/amenities';
 import Reviews from '../../reviews/reviews';
 import PlaceFeatures from '../../place-features/place-features';
 import Host from '../../host/host';
-import offerProp from '../../screens/main/offers.prop';
-import reviewProp from '../../reviews/review.prop';
-import PropTypes from 'prop-types';
-import {useParams} from 'react-router-dom';
 
 
 function Offer(props) {

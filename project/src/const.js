@@ -13,3 +13,11 @@ export const Screen = {
   FAVORITES: 'FAVORITES',
   OFFER: 'OFFER',
 };
+
+
+export const MapMarker = {
+  DEFAULT_URL: 'img/pin.svg',
+  CURRENT_URL: 'img/pin-active.svg',
+  ICON_SIZE: [27, 35],
+  ICON_ANCHOR: [13.5, 35],
+};

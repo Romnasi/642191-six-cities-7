@@ -42,14 +42,14 @@ function Card(props) {
     isPremium,
     isFavorite,
     rating,
-    onHover,
+    onListItemHover,
     id,
   } = props;
 
   const ratingWidth = convertRating(rating);
 
   function handleCardMouseOver() {
-    onHover(id);
+    onListItemHover(id);
   }
 
   return (
@@ -125,7 +125,7 @@ Card.propTypes = {
   isPremium: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,
   rating: PropTypes.number.isRequired,
-  onHover: PropTypes.func,
+  onListItemHover: PropTypes.func,
   id: PropTypes.number,
 };
 

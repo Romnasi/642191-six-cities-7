@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Main from '../screens/main/main';
@@ -12,13 +12,26 @@ import reviewProp from '../reviews/review.prop';
 
 function App(props) {
   const {offers, reviews} = props;
+  const [selectedPoint, setSelectedPoint] = useState({});
+
   const favoritesCards = offers.filter(({isFavorite}) => isFavorite);
   const nearPlaces = offers.slice(0, 3);
+
+  const onListItemHover = (id) => {
+    const currentPoint = offers.find((offer) => offer.id === id).location;
+    setSelectedPoint(currentPoint);
+  };
+
+
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <Main offers={offers} />
+          <Main
+            offers={offers}
+            onListItemHover={onListItemHover}
+            selectedPoint={selectedPoint}
+          />
         </Route>
 
         <Route exact path={AppRoute.LOGIN}>
@@ -26,11 +39,17 @@ function App(props) {
         </Route>
 
         <Route exact path={AppRoute.FAVORITES}>
-          <Favorites offers={favoritesCards} />
+          <Favorites
+            offers={favoritesCards}
+          />
         </Route >
 
         <Route exact path={AppRoute.OFFER} >
-          <Offer offers={offers} nearPlaces={nearPlaces} reviews={reviews} />
+          <Offer
+            offers={offers}
+            nearPlaces={nearPlaces}
+            reviews={reviews}
+          />
         </Route>
 
         <Route>

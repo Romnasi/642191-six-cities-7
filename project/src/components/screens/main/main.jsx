@@ -1,11 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import offerProp from '../main/offers.prop';
+import pointProp from '../../map/point.prop';
 import Header from '../../header/header';
 import OfferList from '../../offer-list/offer-list';
-import offerProp from '../main/offers.prop';
+import Map from '../../map/map';
+
+const currentCity = 'Amsterdam';
 
 
 function Main(props) {
-  const {offers} = props;
+  const {offers, onListItemHover, selectedPoint} = props;
+
+  const currentOffers = offers
+    .filter(({city: { name }}) => name === currentCity);
 
   return (
     <div className="page page--gray page--main">
@@ -70,11 +78,17 @@ function Main(props) {
                 </ul>
               </form>
 
-              <OfferList currentCity={'Amsterdam'} offers={offers} />
+              <OfferList
+                currentOffers={currentOffers}
+                onListItemHover={onListItemHover}
+              />
 
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"/>
+              <Map
+                currentOffers={currentOffers}
+                selectedPoint={selectedPoint}
+              />
             </div>
           </div>
         </div>
@@ -86,6 +100,8 @@ function Main(props) {
 
 Main.propTypes = {
   offers: offerProp,
+  onListItemHover: PropTypes.func.isRequired,
+  selectedPoint: pointProp,
 };
 
 export default Main;

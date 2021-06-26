@@ -1,25 +1,23 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Card from '../card/card';
 import offerProp from '../screens/main/offers.prop';
-import PropTypes from 'prop-types';
 import {Screen} from '../../const';
+import PropTypes from 'prop-types';
 
 
 function OfferList(props) {
-  const [, setActiveCardId] = useState(0);
-  const {offers, currentCity} = props;
+  const {currentOffers, onListItemHover} = props;
 
   return (
     <div className="cities__places-list places__list tabs__content" >
-      {offers
-        .filter(({city: { name }}) => name === currentCity)
+      {currentOffers
         .map(({id, ...other}) => (
           <Card
             key={id.toString()}
             cardType={Screen.MAIN}
             {...other}
             id={id}
-            onHover={setActiveCardId}
+            onListItemHover={onListItemHover}
           />
         ))}
     </div>
@@ -27,8 +25,8 @@ function OfferList(props) {
 }
 
 OfferList.propTypes = {
-  offers: offerProp,
-  currentCity: PropTypes.string.isRequired,
+  currentOffers: offerProp,
+  onListItemHover: PropTypes.func.isRequired,
 };
 
 export default OfferList;

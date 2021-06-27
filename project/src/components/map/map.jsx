@@ -27,23 +27,27 @@ function Map({currentOffers, selectedPoint}) {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const pointLayer = leaflet.layerGroup();
 
 
   useEffect(() => {
     if (map) {
       points.forEach((point) => {
-        leaflet
-          .marker({
+        pointLayer
+          .addLayer(leaflet.marker({
             lat: point.latitude,
             lng: point.longitude,
           }, {
             icon: (point.latitude === selectedPoint.latitude && point.longitude === selectedPoint.longitude)
               ? currentCustomIcon
               : defaultCustomIcom,
-          })
+          }))
           .addTo(map);
       });
     }
+    return () => {
+      pointLayer.clearLayers();
+    };
   }, [map, points, selectedPoint]);
 
   return (

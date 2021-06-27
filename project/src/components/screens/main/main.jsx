@@ -1,7 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {useState} from 'react';
 import offerProp from '../main/offers.prop';
-import pointProp from '../../map/point.prop';
 import Header from '../../header/header';
 import OfferList from '../../offer-list/offer-list';
 import Map from '../../map/map';
@@ -10,7 +8,14 @@ const currentCity = 'Amsterdam';
 
 
 function Main(props) {
-  const {offers, onListItemHover, selectedPoint} = props;
+  const {offers} = props;
+  const [selectedPoint, setSelectedPoint] = useState({});
+
+  const onListItemHover = (id) => {
+    const currentPoint = offers.find((offer) => offer.id === id).location;
+    setSelectedPoint(currentPoint);
+  };
+
 
   const currentOffers = offers
     .filter(({city: { name }}) => name === currentCity);
@@ -100,8 +105,6 @@ function Main(props) {
 
 Main.propTypes = {
   offers: offerProp,
-  onListItemHover: PropTypes.func.isRequired,
-  selectedPoint: pointProp,
 };
 
 export default Main;

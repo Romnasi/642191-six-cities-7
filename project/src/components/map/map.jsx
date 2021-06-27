@@ -3,7 +3,7 @@ import leaflet from 'leaflet';
 import offerProp from '../screens/main/offers.prop';
 import pointProp from './point.prop';
 
-import useMap from './useMap';
+import useMap from './use-map';
 import {MapMarker} from '../../const';
 
 import 'leaflet/dist/leaflet.css';

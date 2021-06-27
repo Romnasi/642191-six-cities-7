@@ -8,6 +8,18 @@ import {MapMarker} from '../../const';
 
 import 'leaflet/dist/leaflet.css';
 
+const defaultCustomIcom = leaflet.icon({
+  iconUrl: MapMarker.DEFAULT_URL,
+  iconSize: MapMarker.ICON_SIZE,
+  iconAnchor: MapMarker.ICON_ANCHOR,
+});
+
+const currentCustomIcon = leaflet.icon({
+  iconUrl: MapMarker.CURRENT_URL,
+  iconSize: MapMarker.ICON_SIZE,
+  iconAnchor: MapMarker.ICON_ANCHOR,
+});
+
 
 function Map({currentOffers, selectedPoint}) {
   const city = currentOffers[0].city.location;
@@ -16,17 +28,6 @@ function Map({currentOffers, selectedPoint}) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
-  const defaultCustomIcom = leaflet.icon({
-    iconUrl: MapMarker.DEFAULT_URL,
-    iconSize: MapMarker.ICON_SIZE,
-    iconAnchor: MapMarker.ICON_ANCHOR,
-  });
-
-  const currentCustomIcon = leaflet.icon({
-    iconUrl: MapMarker.CURRENT_URL,
-    iconSize: MapMarker.ICON_SIZE,
-    iconAnchor: MapMarker.ICON_ANCHOR,
-  });
 
   useEffect(() => {
     if (map) {

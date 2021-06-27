@@ -12,13 +12,18 @@ import reviewProp from '../reviews/review.prop';
 
 function App(props) {
   const {offers, reviews} = props;
+
   const favoritesCards = offers.filter(({isFavorite}) => isFavorite);
   const nearPlaces = offers.slice(0, 3);
+
+
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <Main offers={offers} />
+          <Main
+            offers={offers}
+          />
         </Route>
 
         <Route exact path={AppRoute.LOGIN}>
@@ -26,11 +31,17 @@ function App(props) {
         </Route>
 
         <Route exact path={AppRoute.FAVORITES}>
-          <Favorites offers={favoritesCards} />
+          <Favorites
+            offers={favoritesCards}
+          />
         </Route >
 
         <Route exact path={AppRoute.OFFER} >
-          <Offer offers={offers} nearPlaces={nearPlaces} reviews={reviews} />
+          <Offer
+            offers={offers}
+            nearPlaces={nearPlaces}
+            reviews={reviews}
+          />
         </Route>
 
         <Route>

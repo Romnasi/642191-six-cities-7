@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {placeTypes} from '../../const';
+import imagesProp from './images.prop';
 
 
 function Gallery({images, type}) {
@@ -12,7 +13,7 @@ function Gallery({images, type}) {
           const keyValue = `${i}-${image}`;
           return (
             <div key={keyValue} className="property__image-wrapper">
-              <img className="property__image" src={`img/${image}`} alt={`Photo ${type}`} />
+              <img className="property__image" src={`img/${image}`} alt={type} />
             </div>
           );
         })}
@@ -23,7 +24,7 @@ function Gallery({images, type}) {
 
 
 Gallery.propTypes = {
-  images: PropTypes.array.isRequired,
+  images: imagesProp,
   type: PropTypes.oneOf(placeTypes).isRequired,
 };
 

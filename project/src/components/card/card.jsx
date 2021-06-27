@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {placeTypes} from '../../const';
+import {placeTypes, Screen} from '../../const';
 import {convertRating} from '../../utils/utils';
 import {Link} from 'react-router-dom';
 
@@ -33,30 +33,48 @@ const Preview = {
 
 
 function Card(props) {
-  const {cardType, title, type, price, previewImage, isPremium, isFavorite, rating, setActiveCardId, id} = props;
+  const {
+    cardType,
+    title,
+    type,
+    price,
+    previewImage,
+    isPremium,
+    isFavorite,
+    rating,
+    id,
+    onListItemHover = () => {},
+  } = props;
+
 
   const ratingWidth = convertRating(rating);
 
-  function HandleCardMouseOver() {
-    setActiveCardId(id);
+  function handleCardMouseOver() {
+    onListItemHover(id);
   }
 
   return (
     <article
       className={`${ScreenClass.ARTICLE[cardType]} place-card`}
-      onMouseOver={cardType === 'MAIN' ? HandleCardMouseOver : undefined}
+      onMouseEnter={handleCardMouseOver}
     >
       {
-        cardType === 'MAIN'
+        cardType === Screen.MAIN
         && isPremium
         && <div className="place-card__mark"><span>Premium</span></div>
       }
       <div className={`${ScreenClass.IMAGE_WRAPPER[cardType]} place-card__image-wrapper`}>
-        <a href="#">
-          <img className="place-card__image" src={`img/${previewImage}`} width={Preview.WIDTH[cardType]} height={Preview.HEIGHT[cardType]} alt="Place" />
-        </a>
+        <Link to={`/offer/${id}`}>
+          <img
+            className="place-card__image"
+            src={`img/${previewImage}`}
+            width={Preview.WIDTH[cardType]}
+            height={Preview.HEIGHT[cardType]}
+            alt="Place"
+          />
+        </Link>
       </div>
-      <div className={cardType === 'FAVORITES'
+      <div className={cardType === Screen.FAVORITES
         ? 'favorites__card-info place-card__info'
         : 'place-card__info'}
       >
@@ -65,11 +83,18 @@ function Card(props) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
+          <button
+            className={
+              `place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`
+            }
+            type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
-            <span className="visually-hidden">{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
+            <span className="visually-hidden">
+              {isFavorite ? 'In bookmarks' : 'To bookmarks'}
+            </span>
           </button>
         </div>
         <div className="place-card__rating rating">
@@ -101,7 +126,7 @@ Card.propTypes = {
   isPremium: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,
   rating: PropTypes.number.isRequired,
-  setActiveCardId: PropTypes.func,
+  onListItemHover: PropTypes.func,
   id: PropTypes.number,
 };
 

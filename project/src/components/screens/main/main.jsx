@@ -1,11 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
+import offerProp from '../main/offers.prop';
 import Header from '../../header/header';
 import OfferList from '../../offer-list/offer-list';
-import offerProp from '../main/offers.prop';
+import Map from '../../map/map';
+
+const currentCity = 'Amsterdam';
 
 
 function Main(props) {
   const {offers} = props;
+  const [selectedPoint, setSelectedPoint] = useState({});
+
+  const onListItemHover = (id) => {
+    const currentPoint = offers.find((offer) => offer.id === id).location;
+    setSelectedPoint(currentPoint);
+  };
+
+
+  const currentOffers = offers
+    .filter(({city: { name }}) => name === currentCity);
 
   return (
     <div className="page page--gray page--main">
@@ -69,10 +82,18 @@ function Main(props) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <OfferList currentCity={'Amsterdam'} offers={offers} />
+
+              <OfferList
+                currentOffers={currentOffers}
+                onListItemHover={onListItemHover}
+              />
+
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"/>
+              <Map
+                currentOffers={currentOffers}
+                selectedPoint={selectedPoint}
+              />
             </div>
           </div>
         </div>

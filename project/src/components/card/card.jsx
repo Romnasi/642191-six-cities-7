@@ -42,9 +42,10 @@ function Card(props) {
     isPremium,
     isFavorite,
     rating,
-    onListItemHover,
     id,
+    onListItemHover = () => {},
   } = props;
+
 
   const ratingWidth = convertRating(rating);
 
@@ -55,7 +56,7 @@ function Card(props) {
   return (
     <article
       className={`${ScreenClass.ARTICLE[cardType]} place-card`}
-      onMouseEnter={cardType === Screen.MAIN ? handleCardMouseOver : undefined}
+      onMouseEnter={handleCardMouseOver}
     >
       {
         cardType === Screen.MAIN

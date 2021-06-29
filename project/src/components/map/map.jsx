@@ -1,29 +1,41 @@
 import React, {useRef, useEffect} from 'react';
 import leaflet from 'leaflet';
+import useMap from './use-map';
+import {defaultCustomIcom, currentCustomIcon} from '../../const';
 import offerProp from '../screens/main/offers.prop';
 import pointProp from './point.prop';
-
-import useMap from './use-map';
-import {MapMarker} from '../../const';
+import PropTypes from 'prop-types';
 
 import 'leaflet/dist/leaflet.css';
 
-const defaultCustomIcom = leaflet.icon({
-  iconUrl: MapMarker.DEFAULT_URL,
-  iconSize: MapMarker.ICON_SIZE,
-  iconAnchor: MapMarker.ICON_ANCHOR,
-});
 
-const currentCustomIcon = leaflet.icon({
-  iconUrl: MapMarker.CURRENT_URL,
-  iconSize: MapMarker.ICON_SIZE,
-  iconAnchor: MapMarker.ICON_ANCHOR,
-});
+const ScreenClass = {
+  MAIN: 'cities__map',
+  OFFER: 'property__map',
+};
+
+const MapSize = {
+  MAIN: '100%',
+  OFFER: '579px',
+};
 
 
-function Map({currentOffers, selectedPoint}) {
+const getIcon = (point, selectedPoint) => {
+  if (!selectedPoint) {
+    return defaultCustomIcom;
+  }
+
+  return (point.latitude === selectedPoint.latitude
+    && point.longitude === selectedPoint.longitude)
+    ? currentCustomIcon
+    : defaultCustomIcom;
+};
+
+
+function Map({currentOffers, selectedPoint, cardType}) {
   const city = currentOffers[0].city.location;
   const points = currentOffers.map(({location}) => location);
+  const clazz = ScreenClass[cardType];
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -38,9 +50,7 @@ function Map({currentOffers, selectedPoint}) {
             lat: point.latitude,
             lng: point.longitude,
           }, {
-            icon: (point.latitude === selectedPoint.latitude && point.longitude === selectedPoint.longitude)
-              ? currentCustomIcon
-              : defaultCustomIcom,
+            icon: getIcon(point, selectedPoint),
           }))
           .addTo(map);
       });
@@ -48,20 +58,24 @@ function Map({currentOffers, selectedPoint}) {
     return () => {
       pointLayer.clearLayers();
     };
-  }, [map, points, selectedPoint]);
+  }, [map, points, selectedPoint, pointLayer]);
+
 
   return (
     <section
       ref={mapRef}
-      className="cities__map map"
-      style={{height: '100%'}}
+      className={`${clazz} map`}
+      style={{height: `${MapSize[cardType]}`}}
     />
   );
 }
 
+
 Map.propTypes = {
   currentOffers: offerProp,
   selectedPoint: pointProp,
+  cardType: PropTypes.string.isRequired,
 };
+
 
 export default Map;

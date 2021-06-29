@@ -3,14 +3,15 @@ import {useParams} from 'react-router-dom';
 import offerProp from '../../screens/main/offers.prop';
 import reviewProp from '../../reviews/review.prop';
 import PropTypes from 'prop-types';
-import {Screen} from '../../../const';
 import Header from '../../header/header';
-import Card from '../../card/card';
 import Gallery from '../../gallery/gallery';
 import Amenities from '../../amenities/amenities';
 import Reviews from '../../reviews/reviews';
 import PlaceFeatures from '../../place-features/place-features';
 import Host from '../../host/host';
+import NearPlaces from '../../near-places/near-places';
+import {Screen} from '../../../const';
+import Map from '../../map/map';
 
 
 function Offer(props) {
@@ -66,26 +67,18 @@ function Offer(props) {
             </div>
           </div>
 
-          <section className="property__map map" />
+          <Map
+            currentOffers={nearPlaces}
+            selectedPoint={null}
+            cardType={Screen.OFFER}
+          />
 
         </section>
 
         <div className="container">
-
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {nearPlaces
-                .map((
-                  {
-                    id,
-                    ...other
-                  },
-                ) => <Card key={id.toString()} cardType={Screen.OFFER} {...other} id={id} />)}
-            </div>
-          </section>
-
+          <NearPlaces nearPlaces={nearPlaces} />
         </div>
+
       </main>
     </div>
   );

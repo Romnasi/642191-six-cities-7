@@ -3,6 +3,7 @@ import offerProp from '../main/offers.prop';
 import Header from '../../header/header';
 import OfferList from '../../offer-list/offer-list';
 import Map from '../../map/map';
+import {Screen} from '../../../const';
 
 const currentCity = 'Amsterdam';
 
@@ -93,6 +94,7 @@ function Main(props) {
               <Map
                 currentOffers={currentOffers}
                 selectedPoint={selectedPoint}
+                cardType={Screen.MAIN}
               />
             </div>
           </div>

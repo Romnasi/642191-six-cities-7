@@ -35,14 +35,13 @@ const getIcon = (point, selectedPoint) => {
 function Map({currentOffers, selectedPoint, cardType}) {
   const city = currentOffers[0].city.location;
   const points = currentOffers.map(({location}) => location);
-  const clazz = ScreenClass[cardType];
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  const pointLayer = leaflet.layerGroup();
 
 
   useEffect(() => {
+    const pointLayer = leaflet.layerGroup();
     if (map) {
       points.forEach((point) => {
         pointLayer
@@ -58,13 +57,13 @@ function Map({currentOffers, selectedPoint, cardType}) {
     return () => {
       pointLayer.clearLayers();
     };
-  }, [map, points, selectedPoint, pointLayer]);
+  }, [map, points, selectedPoint]);
 
 
   return (
     <section
       ref={mapRef}
-      className={`${clazz} map`}
+      className={`${ScreenClass[cardType]} map`}
       style={{height: `${MapSize[cardType]}`}}
     />
   );

@@ -32,7 +32,10 @@ function Offer(props) {
     goods,
     host,
     description,
+    location,
   } = currentPlace;
+
+  const currentOffers = [ currentPlace, ...nearPlaces];
 
 
   return (
@@ -60,7 +63,10 @@ function Offer(props) {
 
               <Amenities goods={goods} />
 
-              <Host host={host} description={description} />
+              <Host
+                host={host}
+                description={description}
+              />
 
               <Reviews reviews={reviews} />
 
@@ -68,8 +74,8 @@ function Offer(props) {
           </div>
 
           <Map
-            currentOffers={nearPlaces}
-            selectedPoint={null}
+            currentOffers={currentOffers}
+            selectedPoint={location}
             cardType={Screen.OFFER}
           />
 

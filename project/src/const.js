@@ -9,6 +9,7 @@ export const AppRoute = {
 
 
 export const placeTypes = ['apartment', 'room', 'house', 'hotel'];
+export const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const Screen = {
   MAIN: 'MAIN',

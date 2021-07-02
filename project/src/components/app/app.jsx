@@ -8,6 +8,7 @@ import Offer from '../screens/offer/offer';
 import NotFoundScreen from '../screens/not-found-screen/not-found-screen';
 import offerProp from '../screens/main/offers.prop';
 import reviewProp from '../reviews/review.prop';
+import {connect} from 'react-redux';
 
 
 function App(props) {
@@ -57,4 +58,9 @@ App.propTypes = {
   reviews: reviewProp,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+});
+
+export {App};
+export default connect(mapStateToProps, null)(App);

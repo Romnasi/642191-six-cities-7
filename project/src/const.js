@@ -38,3 +38,23 @@ export const currentCustomIcon = leaflet.icon({
   iconSize: MapMarker.ICON_SIZE,
   iconAnchor: MapMarker.ICON_ANCHOR,
 });
+
+
+export const Sorter = {
+  POPULAR: {
+    ID: 'popular',
+    LABEL: 'Popular',
+  },
+  LOW_TO_HIGH: {
+    ID: 'price-low-to-high',
+    LABEL: 'Price: low to high',
+  },
+  HIGH_TO_LOW: {
+    ID: 'price-high-to-low',
+    LABEL: 'Price: high to low',
+  },
+  TOP_RATED_FIRST: {
+    ID: 'top-rated-first',
+    LABEL: 'Top rated first',
+  },
+};

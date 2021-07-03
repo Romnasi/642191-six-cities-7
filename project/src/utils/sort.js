@@ -1,4 +1,5 @@
 import {getDiffDate} from './date';
+import {Sorter} from '../const';
 
 
 const getWeightForNullDate = (dateA, dateB) => {
@@ -27,4 +28,20 @@ export const sortByDateDown = (dateA, dateB) => {
   }
 
   return getDiffDate(dateB, dateA);
+};
+
+
+export const getSortedOffers = (currentOffers, activeFilter) => {
+  switch (activeFilter) {
+    case Sorter.POPULAR.ID:
+      return currentOffers;
+    case Sorter.LOW_TO_HIGH.ID:
+      return currentOffers.sort((a, b) => a.price - b.price);
+    case Sorter.HIGH_TO_LOW.ID:
+      return currentOffers.sort((b, a) => a.price - b.price);
+    case Sorter.TOP_RATED_FIRST.ID:
+      return currentOffers.sort((b, a) => a.rating - b.rating);
+    default:
+      return currentOffers;
+  }
 };

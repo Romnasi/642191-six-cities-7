@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {cities} from '../../const';
+import currentCityProp from './current-city.prop';
 
-const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 function CityList({currentCity, changeCity}) {
 
@@ -36,7 +37,7 @@ function CityList({currentCity, changeCity}) {
 }
 
 CityList.propTypes = {
-  currentCity: PropTypes.string.isRequired,
+  currentCity: currentCityProp,
   changeCity: PropTypes.func.isRequired,
 };
 

@@ -1,6 +1,6 @@
 import React, {useRef, useEffect} from 'react';
 import leaflet from 'leaflet';
-import useMap from './use-map';
+import useMap from '../../hooks/use-map';
 import {defaultCustomIcon, currentCustomIcon} from '../../const';
 import offerProp from '../screens/main/offers.prop';
 import pointProp from './point.prop';

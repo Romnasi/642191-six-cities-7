@@ -2,12 +2,12 @@ import React from 'react';
 import Header from '../../header/header';
 import Card from '../../card/card';
 import offerProp from '../../screens/main/offers.prop';
-import {Screen} from '../../../const';
+import {AppRoute, Screen} from '../../../const';
+import Footer from '../../footer/footer';
+import {Link} from 'react-router-dom';
 
 
-function Favorites (props) {
-  const {offers} = props;
-
+function Favorites ({offers}) {
   const sortByCitiesData = Object.entries(offers.reduce((total, cityData) => {
     const {city: {name}} = cityData;
 
@@ -34,9 +34,9 @@ function Favorites (props) {
                   <li className="favorites__locations-items" key={city}>
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
-                        <a className="locations__item-link" href="#">
+                        <Link className="locations__item-link" to={AppRoute.ROOT}>
                           <span>{city}</span>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className="favorites__places">
@@ -54,11 +54,9 @@ function Favorites (props) {
           </section>
         </div>
       </main>
-      <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-        </a>
-      </footer>
+
+      <Footer />
+
     </div>
   );
 }

@@ -32,20 +32,10 @@ const Preview = {
 };
 
 
-function Card(props) {
-  const {
-    cardType,
-    title,
-    type,
-    price,
-    previewImage,
-    isPremium,
-    isFavorite,
-    rating,
-    id,
-    onListItemHover = () => {},
-  } = props;
-
+function Card({
+  cardType, title, type, price, previewImage, isPremium, isFavorite, rating, id,
+  onListItemHover = () => {},
+}) {
 
   const ratingWidth = convertRating(rating);
 

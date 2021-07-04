@@ -11,8 +11,7 @@ import reviewProp from '../reviews/review.prop';
 import {connect} from 'react-redux';
 
 
-function App(props) {
-  const {offers, reviews} = props;
+function App({offers, reviews}) {
 
   const favoritesCards = offers.filter(({isFavorite}) => isFavorite);
   const nearPlaces = offers.slice(0, 3);

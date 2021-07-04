@@ -31,8 +31,8 @@ export const sortByDateDown = (dateA, dateB) => {
 };
 
 
-export const getSortedOffers = (currentOffers, activeFilter) => {
-  switch (activeFilter) {
+export const getSortedOffers = (currentOffers, activeSort) => {
+  switch (activeSort) {
     case Sorter.POPULAR.ID:
       return currentOffers;
     case Sorter.LOW_TO_HIGH.ID:

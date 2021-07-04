@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import leaflet from 'leaflet';
 import useMap from './use-map';
-import {defaultCustomIcom, currentCustomIcon} from '../../const';
+import {defaultCustomIcon, currentCustomIcon} from '../../const';
 import offerProp from '../screens/main/offers.prop';
 import pointProp from './point.prop';
 import PropTypes from 'prop-types';
@@ -22,13 +22,13 @@ const MapSize = {
 
 const getIcon = (point, selectedPoint) => {
   if (!selectedPoint) {
-    return defaultCustomIcom;
+    return defaultCustomIcon;
   }
 
   return (point.latitude === selectedPoint.latitude
     && point.longitude === selectedPoint.longitude)
     ? currentCustomIcon
-    : defaultCustomIcom;
+    : defaultCustomIcon;
 };
 
 

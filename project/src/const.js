@@ -26,7 +26,7 @@ const MapMarker = {
 };
 
 
-export const defaultCustomIcom = leaflet.icon({
+export const defaultCustomIcon = leaflet.icon({
   iconUrl: MapMarker.DEFAULT_URL,
   iconSize: MapMarker.ICON_SIZE,
   iconAnchor: MapMarker.ICON_ANCHOR,

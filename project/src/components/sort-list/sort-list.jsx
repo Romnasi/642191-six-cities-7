@@ -3,7 +3,7 @@ import {Sorter} from '../../const';
 import PropTypes from 'prop-types';
 
 
-function SortList({ activeFilter, onFilterClick }) {
+function SortList({ activeSort, onSorterClick }) {
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -16,16 +16,16 @@ function SortList({ activeFilter, onFilterClick }) {
       </span>
       <ul className="places__options places__options--custom places__options--opened">
         {
-          Object.values(Sorter).map(({ ID, LABEL }) => {
-            const isActive = ID === activeFilter;
+          Object.values(Sorter).map(({ ID: id, LABEL: label }) => {
+            const isActive = id === activeSort;
             return (
               <li
-                onClick={() => onFilterClick(ID)}
-                key={ID}
+                onClick={() => onSorterClick(id)}
+                key={id}
                 className={`places__option ${isActive && 'places__option--active'}`}
                 tabIndex="0"
               >
-                {LABEL}
+                {label}
               </li>
             );
           })
@@ -36,9 +36,9 @@ function SortList({ activeFilter, onFilterClick }) {
 }
 
 SortList.propTypes = {
-  activeFilter: PropTypes.oneOf(Object.values(Sorter)
+  activeSort: PropTypes.oneOf(Object.values(Sorter)
     .map(({ID}) => ID)).isRequired,
-  onFilterClick: PropTypes.func.isRequired,
+  onSorterClick: PropTypes.func.isRequired,
 };
 
 

@@ -12,10 +12,19 @@ import Host from '../../host/host';
 import NearPlaces from '../../near-places/near-places';
 import {Screen} from '../../../const';
 import Map from '../../map/map';
+import LoadingScreen from '../../loading-screen/loading-screen';
 
 
 function Offer({offers, nearPlaces, reviews}) {
   const currentID = useParams().id;
+
+  // В случае прямого перехода по ссылке не с главной страницы
+  // Позже дополним фетчем по id
+  if (offers.length < 1) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   const currentPlace = offers.find((offer) => offer.id.toString() === currentID);
   const {

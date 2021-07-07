@@ -57,7 +57,7 @@ function Card({
         <Link to={`/offer/${id}`}>
           <img
             className="place-card__image"
-            src={`img/${previewImage}`}
+            src={`${previewImage}`}
             width={Preview.WIDTH[cardType]}
             height={Preview.HEIGHT[cardType]}
             alt="Place"

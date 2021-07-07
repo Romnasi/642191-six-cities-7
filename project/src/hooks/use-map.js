@@ -6,6 +6,13 @@ function useMap(mapRef, city) {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
+    if (map) {
+      const latlng = leaflet.latLng(city.latitude, city.longitude);
+      map.flyTo(latlng, city.zoom);
+    }}, [map, city],
+  );
+
+  useEffect(() => {
     if (mapRef.current !== null && map === null) {
       const instance = leaflet.map(mapRef.current, {
         center: {

@@ -39,7 +39,6 @@ function Map({currentOffers, selectedPoint, cardType}) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
-
   useEffect(() => {
     const pointLayer = leaflet.layerGroup();
     if (map) {
@@ -57,7 +56,7 @@ function Map({currentOffers, selectedPoint, cardType}) {
     return () => {
       pointLayer.clearLayers();
     };
-  }, [map, points, selectedPoint]);
+  }, [map, points, selectedPoint, city]);
 
 
   return (

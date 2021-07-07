@@ -5,9 +5,7 @@ import {Screen} from '../../const';
 import PropTypes from 'prop-types';
 
 
-function OfferList(props) {
-  const {currentOffers, onListItemHover} = props;
-
+function OfferList({currentOffers, onListItemHover}) {
   return (
     <div className="cities__places-list places__list tabs__content" >
       {currentOffers

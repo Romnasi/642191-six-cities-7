@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import leaflet from 'leaflet';
-import useMap from './use-map';
-import {defaultCustomIcom, currentCustomIcon} from '../../const';
+import useMap from '../../hooks/use-map';
+import {defaultCustomIcon, currentCustomIcon} from '../../const';
 import offerProp from '../screens/main/offers.prop';
 import pointProp from './point.prop';
 import PropTypes from 'prop-types';
@@ -22,13 +22,13 @@ const MapSize = {
 
 const getIcon = (point, selectedPoint) => {
   if (!selectedPoint) {
-    return defaultCustomIcom;
+    return defaultCustomIcon;
   }
 
   return (point.latitude === selectedPoint.latitude
     && point.longitude === selectedPoint.longitude)
     ? currentCustomIcon
-    : defaultCustomIcom;
+    : defaultCustomIcon;
 };
 
 
@@ -38,7 +38,6 @@ function Map({currentOffers, selectedPoint, cardType}) {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-
 
   useEffect(() => {
     const pointLayer = leaflet.layerGroup();
@@ -57,7 +56,7 @@ function Map({currentOffers, selectedPoint, cardType}) {
     return () => {
       pointLayer.clearLayers();
     };
-  }, [map, points, selectedPoint]);
+  }, [map, points, selectedPoint, city]);
 
 
   return (

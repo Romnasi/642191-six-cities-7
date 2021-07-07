@@ -26,7 +26,7 @@ const MapMarker = {
 };
 
 
-export const defaultCustomIcom = leaflet.icon({
+export const defaultCustomIcon = leaflet.icon({
   iconUrl: MapMarker.DEFAULT_URL,
   iconSize: MapMarker.ICON_SIZE,
   iconAnchor: MapMarker.ICON_ANCHOR,
@@ -57,4 +57,18 @@ export const Sorter = {
     ID: 'top-rated-first',
     LABEL: 'Top rated first',
   },
+};
+
+
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
+
+export const APIRoute = {
+  HOTELS: '/hotels',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
 };

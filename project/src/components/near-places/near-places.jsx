@@ -3,9 +3,7 @@ import Card from '../card/card';
 import {Screen} from '../../const';
 import offerProp from '../screens/main/offers.prop';
 
-function NearPlaces(props) {
-  const {nearPlaces} = props;
-
+function NearPlaces({nearPlaces}) {
   const nearPlaceItems = nearPlaces
     .map(({id, ...other}) => <Card key={id.toString()} cardType={Screen.OFFER} {...other} id={id} />);
 

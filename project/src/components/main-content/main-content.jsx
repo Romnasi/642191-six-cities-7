@@ -12,13 +12,13 @@ import {getSortedOffers} from '../../utils/sort';
 
 function MainContent({offersCount, currentCity, currentOffers, selectedPoint, onListItemHover}) {
 
-  const [activeFilter, setActiveFilter] = useState('popular');
+  const [activeSort, setActiveSort] = useState('popular');
 
-  const onFilterClick = (id) => {
-    setActiveFilter(id);
+  const onSorterClick = (id) => {
+    setActiveSort(id);
   };
 
-  const sortedOffers = getSortedOffers(currentOffers.slice(), activeFilter);
+  const sortedOffers = getSortedOffers(currentOffers.slice(), activeSort);
 
   return (
     <div className="cities__places-container container">
@@ -27,8 +27,8 @@ function MainContent({offersCount, currentCity, currentOffers, selectedPoint, on
         <b className="places__found">{`${offersCount} places to stay in ${currentCity}`}</b>
 
         <SortList
-          activeFilter={activeFilter}
-          onFilterClick={onFilterClick}
+          activeSort={activeSort}
+          onSorterClick={onSorterClick}
         />
 
         <OfferList

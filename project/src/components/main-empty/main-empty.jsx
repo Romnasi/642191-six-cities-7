@@ -2,7 +2,7 @@ import React from 'react';
 import currentCityProp from '../city-list/current-city.prop';
 
 function MainEmpty({currentCity}){
-  return(
+  return (
     <div className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">
         <div className="cities__status-wrapper tabs__content">

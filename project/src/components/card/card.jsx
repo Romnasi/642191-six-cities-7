@@ -32,20 +32,10 @@ const Preview = {
 };
 
 
-function Card(props) {
-  const {
-    cardType,
-    title,
-    type,
-    price,
-    previewImage,
-    isPremium,
-    isFavorite,
-    rating,
-    id,
-    onListItemHover = () => {},
-  } = props;
-
+function Card({
+  cardType, title, type, price, previewImage, isPremium, isFavorite, rating, id,
+  onListItemHover = () => {},
+}) {
 
   const ratingWidth = convertRating(rating);
 
@@ -67,7 +57,7 @@ function Card(props) {
         <Link to={`/offer/${id}`}>
           <img
             className="place-card__image"
-            src={`img/${previewImage}`}
+            src={`${previewImage}`}
             width={Preview.WIDTH[cardType]}
             height={Preview.HEIGHT[cardType]}
             alt="Place"

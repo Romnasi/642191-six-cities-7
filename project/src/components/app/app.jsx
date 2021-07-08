@@ -11,7 +11,7 @@ import offerProp from '../screens/main/offers.prop';
 import reviewProp from '../reviews/review.prop';
 import {connect} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
-import {isCheckedAuth} from '../../utils/utils';
+import {isUnknownAuth} from '../../utils/utils';
 
 
 function App({
@@ -23,7 +23,7 @@ function App({
   const favoritesCards = offers.filter(({isFavorite}) => isFavorite);
   const nearPlaces = offers.slice(0, 3);
 
-  if (isCheckedAuth( authorizationStatus || isDataLoaded)) {
+  if (isUnknownAuth(authorizationStatus) || !isDataLoaded) {
     return (
       <LoadingScreen />
     );

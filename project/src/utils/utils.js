@@ -17,5 +17,5 @@ export function capitalizeFirstLetter(string) {
 }
 
 
-export const isCheckedAuth = (authorizationStatus) =>
+export const isUnknownAuth = (authorizationStatus) =>
   authorizationStatus === AuthorizationStatus.UNKNOWN;

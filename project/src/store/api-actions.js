@@ -1,11 +1,11 @@
 import {ActionCreator} from './action';
 import {AuthorizationStatus, APIRoute} from '../const';
-import {adaptOffersToClient} from '../utils/adapter';
+import {adaptOfferToClient} from '../utils/adapter';
 
 
 export const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.HOTELS)
-    .then(({data}) => data.map(adaptOffersToClient))
+    .then(({data}) => data.map(adaptOfferToClient))
     .then((data) => dispatch(ActionCreator.loadOffers(data)))
 );
 

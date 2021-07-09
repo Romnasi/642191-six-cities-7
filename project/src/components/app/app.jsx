@@ -12,7 +12,7 @@ import reviewProp from '../reviews/review.prop';
 import {connect} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {isUnknownAuth} from '../../utils/utils';
-import {PrivateRoute} from '../private-route/private-route';
+import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 
 
@@ -46,7 +46,8 @@ function App({
           <SignIn />
         </Route>
 
-        <PrivateRoute authorizationStatus={authorizationStatus}
+        <PrivateRoute
+          authorizationStatus={authorizationStatus}
           exact
           path={AppRoute.FAVORITES}
           render={() => <Favorites offers={favoritesCards} />}

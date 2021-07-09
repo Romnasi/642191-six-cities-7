@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Redirect} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {connect} from 'react-redux';
 
 
 function PrivateRoute({render, path, exact, authorizationStatus}) {
@@ -27,10 +26,5 @@ PrivateRoute.propTypes = {
   render: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-});
+export default PrivateRoute;
 
-
-export {PrivateRoute};
-export default connect(mapStateToProps)(PrivateRoute);

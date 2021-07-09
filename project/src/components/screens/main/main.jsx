@@ -26,7 +26,7 @@ function Main({offers, currentCity, changeCity}) {
 
   return (
     <div className="page page--gray page--main">
-      <Header isMainScreen isLoggedIn />
+      <Header isMainScreen />
 
       <main className={`page__main page__main--index ${isEmpty && 'page__main--index-empty'}`}>
 

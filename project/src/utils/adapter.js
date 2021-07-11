@@ -1,4 +1,4 @@
-export const adaptOffersToClient = (offers) => {
+export const adaptOfferToClient = (offers) => {
   const adaptedOffers = Object.assign(
     {},
     offers,

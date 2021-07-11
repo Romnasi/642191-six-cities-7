@@ -1,14 +1,35 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/action';
+import PropTypes from 'prop-types';
 
 
-function SignOutLink() {
+function SignOutLink({logout}) {
   return (
-    <Link className="header__nav-link" to={AppRoute.ROOT}>
+    <Link
+      className="header__nav-link"
+      onClick={(evt) => {
+        evt.preventDefault();
+        logout();
+      }}
+      to={AppRoute.ROOT}
+    >
       <span className="header__signout">Sign out</span>
     </Link>
   );
 }
 
-export default SignOutLink;
+const mapDispatchToProps = (dispatch) => ({
+  logout() {
+    dispatch(ActionCreator.logout());
+  },
+});
+
+SignOutLink.propTypes = {
+  logout: PropTypes.func.isRequired,
+};
+
+export {SignOutLink};
+export default connect(null, mapDispatchToProps)(SignOutLink);

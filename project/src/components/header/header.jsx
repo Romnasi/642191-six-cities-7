@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 import Logo from '../logo/logo';
 import ProfileLink from '../profile-link/profile-link';
 import SignOutLink from '../sign-out-link/sign-out-link';
+import {connect} from 'react-redux';
+import {AuthorizationStatus} from '../../const';
 
 
-function Header({isMainScreen, isLoggedIn}) {
+function Header({isMainScreen, authorizationStatus}) {
+  const isLoggedIn = authorizationStatus === AuthorizationStatus.AUTH;
+
   return (
     <header className="header">
       <div className="container">
@@ -29,7 +33,14 @@ function Header({isMainScreen, isLoggedIn}) {
 
 Header.propTypes = {
   isMainScreen: PropTypes.bool,
-  isLoggedIn: PropTypes.bool,
+  // isLoggedIn: PropTypes.bool,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
+
+
+export {Header};
+export default connect(mapStateToProps, null)(Header);

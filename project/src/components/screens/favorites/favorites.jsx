@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from '../../header/header';
-import Card from '../../card/card';
 import offerProp from '../../screens/main/offers.prop';
-import {AppRoute, Screen} from '../../../const';
 import Footer from '../../footer/footer';
-import {Link} from 'react-router-dom';
+import FavoritesList from '../../favorites-list/favorites-list';
+import FavoritesEmpty from '../../favorites-empty/favorites-empty';
 
 
 function Favorites ({offers}) {
+  const offersCount = offers.length;
   const sortByCitiesData = Object.entries(offers.reduce((total, cityData) => {
     const {city: {name}} = cityData;
 
@@ -21,37 +21,27 @@ function Favorites ({offers}) {
   }, {}));
 
   return (
-    <div className="page">
+    <div
+      className={
+        `page ${offersCount === 0 && 'page--favorites-empty'}`
+      }
+    >
       <Header />
 
-      <main className="page__main page__main--favorites">
+      <main
+        className={
+          `page__main page__main--favorites ${offersCount === 0 && 'page__main--favorites-empty'}`
+        }
+      >
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {sortByCitiesData
-                .map(([city, cityData]) =>(
-                  <li className="favorites__locations-items" key={city}>
-                    <div className="favorites__locations locations locations--current">
-                      <div className="locations__item">
-                        <Link className="locations__item-link" to={AppRoute.ROOT}>
-                          <span>{city}</span>
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="favorites__places">
-                      {cityData
-                        .map((
-                          {
-                            id,
-                            ...other
-                          },
-                        ) => <Card key={id.toString()} cardType={Screen.FAVORITES} {...other} id={id} />)}
-                    </div>
-                  </li>
-                ))}
-            </ul>
-          </section>
+
+          {offersCount === 0
+            ?
+            <FavoritesEmpty />
+            :
+            <FavoritesList
+              sortByCitiesData={sortByCitiesData}
+            />}
         </div>
       </main>
 

@@ -4,9 +4,11 @@ import {convertRating} from '../../utils/utils';
 import {getDatetime, getMonthAndYear} from '../../utils/date';
 import {sortByDateDown} from '../../utils/sort';
 import reviewProp from '../reviews/review.prop';
+import PropTypes from 'prop-types';
+import {AuthorizationStatus} from '../../const';
 
 
-function Reviews({reviews}) {
+function Reviews({reviews, authorizationStatus}) {
   const reviewAmount = reviews.length;
   const sortedReviews = reviews.sort(sortByDateDown);
 
@@ -55,7 +57,7 @@ function Reviews({reviews}) {
         {reviewItems}
       </ul>
 
-      <ReviewForm />
+      {authorizationStatus === AuthorizationStatus.AUTH && <ReviewForm/>}
 
     </section>
   );
@@ -63,6 +65,7 @@ function Reviews({reviews}) {
 
 Reviews.propTypes = {
   reviews: reviewProp,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export default Reviews;

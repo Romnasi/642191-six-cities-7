@@ -5,6 +5,7 @@ export const AppRoute = {
   LOGIN: '/login',
   FAVORITES: '/favorites',
   OFFER: '/offer/:id',
+  NOT_FOUND: '/404',
 };
 
 
@@ -71,4 +72,5 @@ export const APIRoute = {
   HOTELS: '/hotels',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  COMMENTS: '/comments',
 };

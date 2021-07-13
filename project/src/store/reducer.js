@@ -4,6 +4,9 @@ import {AuthorizationStatus} from '../const';
 const initialState = {
   currentCity: 'Paris',
   offers: [],
+  nearbyOffers: [],
+  currentOffer: null,
+  comments: [],
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isDataLoaded: false,
 };
@@ -21,6 +24,22 @@ const reducer = (state = initialState, action) => {
         ...state,
         offers: action.payload,
         isDataLoaded: true,
+      };
+    case ActionType.LOAD_OFFER:
+      return {
+        ...state,
+        currentOffer: action.payload,
+        isDataLoaded: true,
+      };
+    case ActionType.LOAD_NEARBY:
+      return {
+        ...state,
+        nearbyOffers: action.payload,
+      };
+    case ActionType.LOAD_COMMENTS:
+      return {
+        ...state,
+        comments: action.payload,
       };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {

@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from '../../header/header';
-import offerProp from '../../screens/main/offers.prop';
 import Footer from '../../footer/footer';
 import FavoritesList from '../../favorites-list/favorites-list';
 import FavoritesEmpty from '../../favorites-empty/favorites-empty';
 
 
-function Favorites ({offers}) {
+function Favorites () {
+  const offers = [];
   const offersCount = offers.length;
   const sortByCitiesData = Object.entries(offers.reduce((total, cityData) => {
     const {city: {name}} = cityData;
@@ -50,11 +50,6 @@ function Favorites ({offers}) {
     </div>
   );
 }
-
-
-Favorites.propTypes = {
-  offers: offerProp,
-};
 
 
 export default Favorites;

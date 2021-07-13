@@ -7,8 +7,6 @@ import SignIn from '../screens/sign-in/sign-in';
 import Favorites from '../screens/favorites/favorites';
 import Offer from '../screens/offer/offer';
 import NotFoundScreen from '../screens/not-found-screen/not-found-screen';
-import offerProp from '../screens/main/offers.prop';
-import reviewProp from '../reviews/review.prop';
 import {connect} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {isUnknownAuth} from '../../utils/utils';
@@ -17,15 +15,10 @@ import browserHistory from '../../browser-history';
 
 
 function App({
-  offers,
-  reviews,
   authorizationStatus,
-  isDataLoaded,
 }) {
-  const favoritesCards = offers.filter(({isFavorite}) => isFavorite);
-  const nearPlaces = offers.slice(0, 3);
 
-  if (isUnknownAuth(authorizationStatus) || !isDataLoaded) {
+  if (isUnknownAuth(authorizationStatus)) {
     return (
       <LoadingScreen />
     );
@@ -37,9 +30,7 @@ function App({
       <Switch>
 
         <Route exact path={AppRoute.ROOT}>
-          <Main
-            offers={offers}
-          />
+          <Main />
         </Route>
 
         <Route exact path={AppRoute.LOGIN}>
@@ -50,16 +41,12 @@ function App({
           authorizationStatus={authorizationStatus}
           exact
           path={AppRoute.FAVORITES}
-          render={() => <Favorites offers={favoritesCards} />}
+          render={() => <Favorites />}
         >
         </PrivateRoute>
 
         <Route exact path={AppRoute.OFFER} >
-          <Offer
-            offers={offers}
-            nearPlaces={nearPlaces}
-            reviews={reviews}
-          />
+          <Offer />
         </Route>
 
         <Route>
@@ -72,14 +59,10 @@ function App({
 }
 
 App.propTypes = {
-  offers: offerProp,
-  reviews: reviewProp,
   authorizationStatus: PropTypes.string.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
   authorizationStatus: state.authorizationStatus,
   isDataLoaded: state.isDataLoaded,
 });

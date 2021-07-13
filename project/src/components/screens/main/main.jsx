@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import offerProp from '../main/offers.prop';
 import currentCityProp from '../../city-list/current-city.prop';
 import PropTypes from 'prop-types';
@@ -8,10 +8,23 @@ import {ActionCreator} from '../../../store/action';
 import CityList from '../../city-list/city-list';
 import MainContent from '../../main-content/main-content';
 import MainEmpty from '../../main-empty/main-empty';
+import {fetchOffersList} from '../../../store/api-actions';
+import LoadingScreen from '../../loading-screen/loading-screen';
 
 
-function Main({offers, currentCity, changeCity}) {
+function Main({offers, currentCity, changeCity, fetchOffers, isDataLoaded}) {
   const [selectedPoint, setSelectedPoint] = useState({});
+
+  useEffect(() => {
+    fetchOffers();
+  }, [fetchOffers]);
+
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   const currentOffers = offers
     .filter(({city: { name }}) => name === currentCity);
@@ -59,19 +72,26 @@ function Main({offers, currentCity, changeCity}) {
 }
 
 Main.propTypes = {
+  fetchOffers: PropTypes.func.isRequired,
   offers: offerProp,
   changeCity: PropTypes.func.isRequired,
   currentCity: currentCityProp,
+  isDataLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  offers: state.offers,
   currentCity: state.currentCity,
+  isDataLoaded: state.isDataLoaded,
 });
 
 
 const mapDispatchToProps = (dispatch) => ({
   changeCity(city) {
     dispatch(ActionCreator.changeCity(city));
+  },
+  fetchOffers(){
+    dispatch(fetchOffersList());
   },
 });
 

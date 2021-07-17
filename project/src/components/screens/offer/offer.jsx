@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import offerProps from '../../screens/main/offers.prop';
 import offerPropItem from '../../screens/main/offer.prop';
@@ -24,14 +24,16 @@ function Offer({
   fetchNearbyOffers, fetchOffer, fetchOfferComments,
 }) {
   const currentID = useParams().id;
+  const [isOfferLoading, setIsOfferLoading] = useState(true);
 
 
   useEffect(() => {
     if (!offers.length) {
-      fetchOffer(currentID);
+      setIsOfferLoading(true);
+      fetchOffer(currentID)
+        .then(() => setIsOfferLoading(false));
     }
   }, [currentID, fetchOffer, offers]);
-
 
   useEffect(() => {
     fetchNearbyOffers(currentID);
@@ -41,11 +43,12 @@ function Offer({
     fetchOfferComments(currentID);
   }, [currentID, fetchOfferComments]);
 
-  if (!offers.length && !currentOffer) {
+
+  if (!offers.length && isOfferLoading) {
     return <LoadingScreen />;
   }
 
-  let currentPlace = {};
+  let currentPlace;
   if (offers.length) {
     currentPlace = offers.find((offer) => offer.id.toString() === currentID);
   } else {

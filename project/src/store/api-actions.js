@@ -49,6 +49,13 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
 );
 
 
+export const postComment = (id, {comment, rating}) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.COMMENTS}/${id}`, {comment, rating})
+    .then(({data}) => data.map(adaptCommentToClient))
+    .then((data) => dispatch(ActionCreator.loadComments(data)))
+);
+
+
 export const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))

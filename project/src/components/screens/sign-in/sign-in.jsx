@@ -55,7 +55,7 @@ function SignIn ({onSubmit, authorizationStatus, currentCity}) {
                   isError400
                   &&
                   <span className="login__error-text">
-                    Введенные данные некорректны
+                    The entered data is incorrect
                   </span>
                 }
                 <label className="visually-hidden">E-mail</label>
@@ -73,7 +73,7 @@ function SignIn ({onSubmit, authorizationStatus, currentCity}) {
                   isError
                   &&
                   <span className="login__error-text">
-                    Пароль не может состоять из одних пробелов
+                    The password cannot contain only spaces
                   </span>
                 }
 

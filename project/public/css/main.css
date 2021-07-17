@@ -4,10 +4,9 @@
   position: relative;
 }
 
-.login__error-text {
+.login__error-text,
+.reviews__error-text {
   position: absolute;
-  top: -47px;
-  left: 5px;
   display: block;
   margin-top: 10px;
   color: tomato;
@@ -15,4 +14,18 @@
   font-size: 12px;
   font-weight: 400;
   text-align: center;
+}
+
+.login__error-text {
+  top: -47px;
+  left: 5px;
+}
+
+.reviews__error-text {
+  top: -18px;
+  left: 0px;
+}
+
+.reviews__button-wrapper {
+  position: relative;
 }

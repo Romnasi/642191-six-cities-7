@@ -1,8 +1,13 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {postComment} from '../../store/api-actions';
 import PropTypes from 'prop-types';
 import {useParams} from 'react-router-dom';
+
+const Comment = {
+  MIN_LENGTH: 50,
+  MAX_LENGTH: 300,
+};
 
 const grades = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
 const maxRate = grades.length;
@@ -11,66 +16,54 @@ const maxRate = grades.length;
 function ReviewForm({postUserComment}) {
   const [formData, setFormData] = useState({
     comment: '',
-    rating: 0,
-    isDisabled: true,
+    rating: null,
+    isLoading: false,
   });
   const [isError400, setIsError400] = useState(false);
-
-  const formRef = useRef();
-  const buttonRef = useRef();
   const currentID = useParams().id;
 
-  const onSubmitBtnDisable = () => {
-    setFormData({
-      ...formData,
-      isDisabled: true,
-    });
+  const commentLength = formData.comment.length;
+
+  const isDisabled = !(commentLength >= Comment.MIN_LENGTH
+    && commentLength <= Comment.MAX_LENGTH
+    && formData.rating !== null
+    && !formData.isLoading);
+
+
+  const resetState = () => {
+    setFormData((state) => ({
+      ...state,
+      comment: '',
+      rating: null,
+    }));
   };
 
-  const onSubmitBtnActive = () => {
-    setFormData( {
-      ...formData,
-      isDisabled: false,
-    });
+
+  const toggleDisableForm = () => {
+    setFormData((state) => ({
+      ...state,
+      isLoading: !state.isLoading,
+    }));
   };
-
-
-  useEffect(() => {
-    const commentLength = formData.comment.length;
-    if (
-      commentLength >= 50
-      && commentLength <= 300
-      && formData.rating !== 0
-    ) {
-      onSubmitBtnActive();
-    } else {
-      onSubmitBtnDisable();
-    }
-  }, [formData.comment, formData.rating]);
 
 
   const onHandleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmitBtnDisable();
+    toggleDisableForm();
 
     postUserComment(currentID, formData)
       .then(() => {
-        setFormData({
-          comment: '',
-          rating: 0,
-          isDisabled: true,
-        });
+        resetState();
       })
       .catch(() => setIsError400(true))
       .finally(() => {
-        onSubmitBtnActive();
-        formRef.current.reset();
+        toggleDisableForm();
       });
   };
 
+
   return (
     <form
-      ref={formRef}
       onSubmit={
         (evt) => onHandleSubmit(evt)
       }
@@ -81,33 +74,36 @@ function ReviewForm({postUserComment}) {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
 
-        {grades.map((grade, i) => (
-          <React.Fragment key={`${grade}-key-${maxRate - i}-stars`}>
-            <input
-              className="form__rating-input visually-hidden"
-              name="rating"
-              value={maxRate - i}
-              id={`${maxRate - i}-stars`}
-              type="radio"
-
-              onChange={() => {
-                setFormData({
-                  ...formData,
-                  rating: maxRate - i,
-                });
-              }}
-            />
-            <label
-              htmlFor={`${maxRate - i}-stars`}
-              className="reviews__rating-label form__rating-label"
-              title={grade}
-            >
-              <svg className="form__star-image" width="37" height="33">
-                <use xlinkHref="#icon-star" />
-              </svg>
-            </label>
-          </React.Fragment>
-        ))}
+        {grades.map((grade, i) => {
+          const rateIndex = maxRate - i;
+          return (
+            <React.Fragment key={`${grade}-key-${rateIndex}-stars`}>
+              <input
+                className="form__rating-input visually-hidden"
+                name="rating"
+                value={rateIndex}
+                id={`${rateIndex}-stars`}
+                type="radio"
+                checked={rateIndex === formData.rating}
+                onChange={() => {
+                  setFormData({
+                    ...formData,
+                    rating: rateIndex,
+                  });
+                }}
+              />
+              <label
+                htmlFor={`${rateIndex}-stars`}
+                className="reviews__rating-label form__rating-label"
+                title={grade}
+              >
+                <svg className="form__star-image" width="37" height="33">
+                  <use xlinkHref="#icon-star"/>
+                </svg>
+              </label>
+            </React.Fragment>
+          );
+        })}
 
       </div>
 
@@ -140,12 +136,11 @@ function ReviewForm({postUserComment}) {
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <p>Current symbols: {formData.comment.length}</p>
+
         <button
-          ref={buttonRef}
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={formData.isDisabled}
+          disabled={isDisabled}
         >
           Submit
         </button>
@@ -155,9 +150,11 @@ function ReviewForm({postUserComment}) {
   );
 }
 
+
 ReviewForm.propTypes = {
   postUserComment: PropTypes.func.isRequired,
 };
+
 
 const mapDispatchToProps = (dispatch) => ({
   postUserComment(id, {comment, rating}) {

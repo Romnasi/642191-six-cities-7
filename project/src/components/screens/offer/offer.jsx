@@ -155,7 +155,6 @@ const mapStateToProps = (state) => ({
   comments: state.comments,
   nearbyOffers: state.nearbyOffers,
   authorizationStatus: state.authorizationStatus,
-  isDataLoaded: state.isDataLoaded,
 });
 
 export {Offer};

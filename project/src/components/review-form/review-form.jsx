@@ -39,7 +39,7 @@ function ReviewForm({postUserComment}) {
   };
 
 
-  const toggleDisableForm = () => {
+  const toggleLoadingState = () => {
     setFormData((state) => ({
       ...state,
       isLoading: !state.isLoading,
@@ -49,7 +49,7 @@ function ReviewForm({postUserComment}) {
 
   const onHandleSubmit = (evt) => {
     evt.preventDefault();
-    toggleDisableForm();
+    toggleLoadingState();
 
     postUserComment(currentID, formData)
       .then(() => {
@@ -57,7 +57,7 @@ function ReviewForm({postUserComment}) {
       })
       .catch(() => setIsError400(true))
       .finally(() => {
-        toggleDisableForm();
+        toggleLoadingState();
       });
   };
 

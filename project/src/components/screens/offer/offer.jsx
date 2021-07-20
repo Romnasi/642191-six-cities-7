@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import offerProp from '../../screens/main/offers.prop';
+import offerProps from '../../screens/main/offers.prop';
+import offerPropItem from '../../screens/main/offer.prop';
 import reviewProp from '../../reviews/review.prop';
 import PropTypes from 'prop-types';
 import Header from '../../header/header';
@@ -12,29 +13,55 @@ import Host from '../../host/host';
 import NearPlaces from '../../near-places/near-places';
 import {Screen} from '../../../const';
 import Map from '../../map/map';
+import {connect} from 'react-redux';
+import {fetchComments, fetchNearby, fetchOfferData} from '../../../store/api-actions';
+import LoadingScreen from '../../loading-screen/loading-screen';
 
 
-function Offer({offers, nearPlaces, reviews}) {
+function Offer({
+  offers, nearbyOffers,
+  currentOffer, comments, authorizationStatus,
+  fetchNearbyOffers, fetchOffer, fetchOfferComments,
+}) {
   const currentID = useParams().id;
+  const [isOfferLoading, setIsOfferLoading] = useState(true);
 
-  const currentPlace = offers.find((offer) => offer.id.toString() === currentID);
+
+  useEffect(() => {
+    if (!offers.length) {
+      setIsOfferLoading(true);
+      fetchOffer(currentID)
+        .then(() => setIsOfferLoading(false));
+    }
+  }, [currentID, fetchOffer, offers]);
+
+  useEffect(() => {
+    fetchNearbyOffers(currentID);
+  }, [currentID, fetchNearbyOffers]);
+
+  useEffect(() => {
+    fetchOfferComments(currentID);
+  }, [currentID, fetchOfferComments]);
+
+
+  if (!offers.length && isOfferLoading) {
+    return <LoadingScreen />;
+  }
+
+  let currentPlace;
+  if (offers.length) {
+    currentPlace = offers.find((offer) => offer.id.toString() === currentID);
+  } else {
+    currentPlace = currentOffer;
+  }
+
   const {
-    images,
-    type,
-    isPremium,
-    title,
-    rating,
-    isFavorite,
-    bedrooms,
-    maxAdults,
-    price,
-    goods,
-    host,
-    description,
-    location,
+    images, type, isPremium, title, rating,
+    isFavorite, bedrooms, maxAdults,
+    price, goods, host, description, location,
   } = currentPlace;
 
-  const currentOffers = [ currentPlace, ...nearPlaces];
+  const currentOffers = [ currentPlace, ...nearbyOffers];
 
 
   return (
@@ -67,7 +94,10 @@ function Offer({offers, nearPlaces, reviews}) {
                 description={description}
               />
 
-              <Reviews reviews={reviews} />
+              <Reviews
+                reviews={comments}
+                authorizationStatus={authorizationStatus}
+              />
 
             </div>
           </div>
@@ -81,7 +111,7 @@ function Offer({offers, nearPlaces, reviews}) {
         </section>
 
         <div className="container">
-          <NearPlaces nearPlaces={nearPlaces} />
+          <NearPlaces nearPlaces={nearbyOffers} />
         </div>
 
       </main>
@@ -90,9 +120,14 @@ function Offer({offers, nearPlaces, reviews}) {
 }
 
 Offer.propTypes = {
-  offers: offerProp,
-  nearPlaces: offerProp,
-  reviews: reviewProp,
+  comments: reviewProp,
+  fetchOfferComments: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  currentOffer: offerPropItem,
+  fetchOffer: PropTypes.func.isRequired,
+  fetchNearbyOffers: PropTypes.func.isRequired,
+  offers: offerProps,
+  nearbyOffers: offerProps,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -101,4 +136,26 @@ Offer.propTypes = {
 };
 
 
-export default Offer;
+const mapDispatchToProps = (dispatch) => ({
+  fetchOffer(id) {
+    return dispatch(fetchOfferData(id));
+  },
+  fetchNearbyOffers(id) {
+    return dispatch(fetchNearby(id));
+  },
+  fetchOfferComments(id) {
+    return dispatch(fetchComments(id));
+  },
+});
+
+
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  currentOffer: state.currentOffer,
+  comments: state.comments,
+  nearbyOffers: state.nearbyOffers,
+  authorizationStatus: state.authorizationStatus,
+});
+
+export {Offer};
+export default connect(mapStateToProps, mapDispatchToProps)(Offer);

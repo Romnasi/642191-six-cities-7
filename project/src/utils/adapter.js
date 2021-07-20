@@ -1,29 +1,52 @@
-export const adaptOfferToClient = (offers) => {
-  const adaptedOffers = Object.assign(
+export const adaptOfferToClient = (offer) => {
+  const adaptedOffer = Object.assign(
     {},
-    offers,
+    offer,
     {
-      previewImage: offers.preview_image,
-      isFavorite: offers.is_favorite,
-      isPremium: offers.is_premium,
-      maxAdults: offers.max_adults,
+      previewImage: offer.preview_image,
+      isFavorite: offer.is_favorite,
+      isPremium: offer.is_premium,
+      maxAdults: offer.max_adults,
       host: Object.assign(
         {},
-        offers.host,
+        offer.host,
         {
-          isPro: offers.host.is_pro,
-          avatarUrl: offers.host.avatar_url,
+          isPro: offer.host.is_pro,
+          avatarUrl: offer.host.avatar_url,
         },
       ),
     },
   );
 
-  delete adaptedOffers.preview_image;
-  delete adaptedOffers.is_favorite;
-  delete adaptedOffers.is_premium;
-  delete adaptedOffers.max_adults;
-  delete adaptedOffers.host.is_pro;
-  delete adaptedOffers.host.avatar_url;
+  delete adaptedOffer.preview_image;
+  delete adaptedOffer.is_favorite;
+  delete adaptedOffer.is_premium;
+  delete adaptedOffer.max_adults;
+  delete adaptedOffer.host.is_pro;
+  delete adaptedOffer.host.avatar_url;
 
-  return adaptedOffers;
+  return adaptedOffer;
+};
+
+
+export const adaptCommentToClient = (comment) => {
+  const adaptComment = Object.assign(
+    {},
+    comment,
+    {
+      user: Object.assign(
+        {},
+        comment.user,
+        {
+          avatarUrl: comment.user.avatar_url,
+          isPro: comment.user.is_pro,
+        },
+      ),
+    },
+  );
+
+  delete adaptComment.user.avatar_url;
+  delete adaptComment.user.is_pro;
+
+  return adaptComment;
 };

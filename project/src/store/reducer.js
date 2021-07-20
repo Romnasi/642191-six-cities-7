@@ -9,6 +9,7 @@ const initialState = {
   comments: [],
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isDataLoaded: false,
+  isOfferLoading: true,
 };
 
 
@@ -29,7 +30,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentOffer: action.payload,
-        isDataLoaded: true,
+        isOfferLoading: false,
       };
     case ActionType.LOAD_NEARBY:
       return {

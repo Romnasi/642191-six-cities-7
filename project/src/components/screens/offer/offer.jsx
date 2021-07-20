@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import offerProps from '../../screens/main/offers.prop';
 import offerPropItem from '../../screens/main/offer.prop';
@@ -19,19 +19,16 @@ import LoadingScreen from '../../loading-screen/loading-screen';
 
 
 function Offer({
-  offers, nearbyOffers,
+  offers, nearbyOffers, isOfferLoading,
   currentOffer, comments, authorizationStatus,
   fetchNearbyOffers, fetchOffer, fetchOfferComments,
 }) {
   const currentID = useParams().id;
-  const [isOfferLoading, setIsOfferLoading] = useState(true);
 
 
   useEffect(() => {
     if (!offers.length) {
-      setIsOfferLoading(true);
-      fetchOffer(currentID)
-        .then(() => setIsOfferLoading(false));
+      fetchOffer(currentID);
     }
   }, [currentID, fetchOffer, offers]);
 
@@ -56,8 +53,8 @@ function Offer({
   }
 
   const {
-    images, type, isPremium, title, rating,
-    isFavorite, bedrooms, maxAdults,
+    isFavorite, isPremium,
+    rating, bedrooms, maxAdults, images, type, title,
     price, goods, host, description, location,
   } = currentPlace;
 
@@ -121,6 +118,7 @@ function Offer({
 
 Offer.propTypes = {
   comments: reviewProp,
+  isOfferLoading: PropTypes.bool.isRequired,
   fetchOfferComments: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   currentOffer: offerPropItem,
@@ -151,6 +149,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
+  isOfferLoading: state.isOfferLoading,
   currentOffer: state.currentOffer,
   comments: state.comments,
   nearbyOffers: state.nearbyOffers,

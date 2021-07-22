@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useParams} from 'react-router-dom';
 import offerProps from '../../screens/main/offers.prop';
 import offerPropItem from '../../screens/main/offer.prop';
@@ -16,6 +16,7 @@ import Map from '../../map/map';
 import {connect} from 'react-redux';
 import {fetchComments, fetchNearby, fetchOfferData} from '../../../store/api-actions';
 import LoadingScreen from '../../loading-screen/loading-screen';
+import useOfferData from '../../../hooks/use-offer-data';
 
 
 function Offer({
@@ -24,22 +25,7 @@ function Offer({
   fetchNearbyOffers, fetchOffer, fetchOfferComments,
 }) {
   const currentID = useParams().id;
-
-
-  useEffect(() => {
-    if (!offers.length) {
-      fetchOffer(currentID);
-    }
-  }, [currentID, fetchOffer, offers]);
-
-  useEffect(() => {
-    fetchNearbyOffers(currentID);
-  }, [currentID, fetchNearbyOffers]);
-
-  useEffect(() => {
-    fetchOfferComments(currentID);
-  }, [currentID, fetchOfferComments]);
-
+  useOfferData(offers, currentID, fetchNearbyOffers, fetchOffer, fetchOfferComments);
 
   if (!offers.length && isOfferLoading) {
     return <LoadingScreen />;

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import offerProp from '../main/offers.prop';
 import currentCityProp from '../../city-list/current-city.prop';
 import PropTypes from 'prop-types';
@@ -11,21 +11,15 @@ import MainEmpty from '../../main-empty/main-empty';
 import {fetchOffersList} from '../../../store/api-actions';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import useSelectedPoint from '../../../hooks/use-selected-point';
+import useOffers from '../../../hooks/use-offers';
 
 
 function Main({offers, currentCity, changeCity, fetchOffers, isDataLoaded}) {
-
-  useEffect(() => {
-    fetchOffers();
-  }, [fetchOffers]);
-
+  useOffers(fetchOffers);
   const [selectedPoint, onListItemHover] = useSelectedPoint(offers);
 
-
   if (!isDataLoaded) {
-    return (
-      <LoadingScreen />
-    );
+    return <LoadingScreen />;
   }
 
   const currentOffers = offers

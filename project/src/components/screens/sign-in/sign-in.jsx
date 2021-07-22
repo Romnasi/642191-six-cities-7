@@ -6,12 +6,10 @@ import {login} from '../../../store/api-actions';
 import {AppRoute, AuthorizationStatus} from '../../../const';
 import {Link, Redirect} from 'react-router-dom';
 import currentCityProp from '../../city-list/current-city.prop';
-import useInputs from '../../../hooks/use-inputs';
+import SignInForm from '../../sign-in-form/sign-in-form';
 
 
 function SignIn ({onSubmit, authorizationStatus, currentCity}) {
-  const [handleSubmit, isError, isError400, loginRef, passwordRef] = useInputs(onSubmit);
-
   if (authorizationStatus === AuthorizationStatus.AUTH) {
     return <Redirect to={AppRoute.ROOT} />;
   }
@@ -24,62 +22,9 @@ function SignIn ({onSubmit, authorizationStatus, currentCity}) {
         <div className="page__login-container container">
 
           <section className="login">
-
             <h1 className="login__title">Sign in</h1>
 
-            <form
-              className="login__form form"
-              action=""
-              method="post"
-              onSubmit={handleSubmit}
-            >
-              <div className="login__input-wrapper form__input-wrapper">
-
-                {
-                  isError400
-                  &&
-                  <span className="login__error-text">
-                    The entered data is incorrect
-                  </span>
-                }
-                <label className="visually-hidden">E-mail</label>
-                <input
-                  ref={loginRef}
-                  className="login__input form__input"
-                  type="email" name="email"
-                  placeholder="Email"
-                  required
-                />
-              </div>
-              <div className="login__input-wrapper form__input-wrapper">
-
-                {
-                  isError
-                  &&
-                  <span className="login__error-text">
-                    The password cannot contain only spaces
-                  </span>
-                }
-
-                <label className="visually-hidden">Password</label>
-                <input
-                  ref={passwordRef}
-                  className="login__input form__input"
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  required
-                />
-              </div>
-
-              <button
-                className="login__submit form__submit button"
-                type="submit"
-              >
-                Sign in
-              </button>
-
-            </form>
+            <SignInForm onSubmit={onSubmit} />
 
           </section>
 

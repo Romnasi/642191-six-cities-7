@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import offerProp from '../main/offers.prop';
 import currentCityProp from '../../city-list/current-city.prop';
 import PropTypes from 'prop-types';
@@ -10,14 +10,16 @@ import MainContent from '../../main-content/main-content';
 import MainEmpty from '../../main-empty/main-empty';
 import {fetchOffersList} from '../../../store/api-actions';
 import LoadingScreen from '../../loading-screen/loading-screen';
+import useSelectedPoint from '../../../hooks/use-selected-point';
 
 
 function Main({offers, currentCity, changeCity, fetchOffers, isDataLoaded}) {
-  const [selectedPoint, setSelectedPoint] = useState({});
 
   useEffect(() => {
     fetchOffers();
   }, [fetchOffers]);
+
+  const [selectedPoint, onListItemHover] = useSelectedPoint(offers);
 
 
   if (!isDataLoaded) {
@@ -31,11 +33,6 @@ function Main({offers, currentCity, changeCity, fetchOffers, isDataLoaded}) {
 
   const offersCount = currentOffers.length;
   const isEmpty = offersCount < 1;
-
-  const onListItemHover = (id) => {
-    const currentPoint = offers.find((offer) => offer.id === id).location;
-    setSelectedPoint(currentPoint);
-  };
 
   return (
     <div className="page page--gray page--main">

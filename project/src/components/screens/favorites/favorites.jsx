@@ -8,6 +8,7 @@ import FavoritesEmpty from '../../favorites-empty/favorites-empty';
 function Favorites () {
   const offers = [];
   const offersCount = offers.length;
+  const isEmpty = offersCount === 0;
   const sortByCitiesData = Object.entries(offers.reduce((total, cityData) => {
     const {city: {name}} = cityData;
 
@@ -21,21 +22,15 @@ function Favorites () {
   }, {}));
 
   return (
-    <div
-      className={
-        `page ${offersCount === 0 && 'page--favorites-empty'}`
-      }
-    >
+    <div className={`page ${isEmpty && 'page--favorites-empty'}`} >
       <Header />
 
       <main
-        className={
-          `page__main page__main--favorites ${offersCount === 0 && 'page__main--favorites-empty'}`
-        }
+        className={`page__main page__main--favorites ${isEmpty && 'page__main--favorites-empty'}`}
       >
         <div className="page__favorites-container container">
 
-          {offersCount === 0
+          {isEmpty
             ?
             <FavoritesEmpty />
             :
@@ -44,9 +39,7 @@ function Favorites () {
             />}
         </div>
       </main>
-
       <Footer />
-
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../header/header';
 import {connect} from 'react-redux';
@@ -6,31 +6,15 @@ import {login} from '../../../store/api-actions';
 import {AppRoute, AuthorizationStatus} from '../../../const';
 import {Link, Redirect} from 'react-router-dom';
 import currentCityProp from '../../city-list/current-city.prop';
+import useInputs from '../../../hooks/use-inputs';
 
 
 function SignIn ({onSubmit, authorizationStatus, currentCity}) {
-  const [isError, setIsError] = useState(false);
-  const [isError400, setIsError400] = useState(false);
-  const loginRef = useRef();
-  const passwordRef = useRef();
+  const [handleSubmit, isError, isError400, loginRef, passwordRef] = useInputs(onSubmit);
 
   if (authorizationStatus === AuthorizationStatus.AUTH) {
     return <Redirect to={AppRoute.ROOT} />;
   }
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-
-    if (passwordRef.current.value.trim() !== '') {
-      onSubmit({
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
-      }).catch(() => setIsError400(true));
-    } else {
-      setIsError(true);
-    }
-  };
-
 
   return (
     <div className="page page--gray page--login">

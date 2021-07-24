@@ -133,13 +133,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-const mapStateToProps = (state) => ({
-  offers: state.offers,
-  isOfferLoading: state.isOfferLoading,
-  currentOffer: state.currentOffer,
-  comments: state.comments,
-  nearbyOffers: state.nearbyOffers,
-  authorizationStatus: state.authorizationStatus,
+const mapStateToProps = ({DATA, USER}) => ({
+  offers: DATA.offers,
+  isOfferLoading: DATA.isOfferLoading,
+  currentOffer: DATA.currentOffer,
+  comments: DATA.comments,
+  nearbyOffers: DATA.nearbyOffers,
+  authorizationStatus: USER.authorizationStatus,
 });
 
 export {Offer};

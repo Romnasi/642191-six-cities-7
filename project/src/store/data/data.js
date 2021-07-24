@@ -1,25 +1,17 @@
-import {ActionType} from './action';
-import {AuthorizationStatus} from '../const';
+import {ActionType} from '../action';
 
 const initialState = {
-  currentCity: 'Paris',
   offers: [],
   nearbyOffers: [],
-  currentOffer: null,
   comments: [],
-  authorizationStatus: AuthorizationStatus.UNKNOWN,
+  currentOffer: null,
   isDataLoaded: false,
   isOfferLoading: true,
 };
 
 
-const reducer = (state = initialState, action) => {
+const data = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.CHANGE_CITY:
-      return {
-        ...state,
-        currentCity: action.payload,
-      };
     case ActionType.LOAD_OFFERS:
       return {
         ...state,
@@ -42,19 +34,9 @@ const reducer = (state = initialState, action) => {
         ...state,
         comments: action.payload,
       };
-    case ActionType.REQUIRED_AUTHORIZATION:
-      return {
-        ...state,
-        authorizationStatus: action.payload,
-      };
-    case ActionType.LOGOUT:
-      return {
-        ...state,
-        authorizationStatus: AuthorizationStatus.NO_AUTH,
-      };
     default:
       return state;
   }
 };
 
-export {reducer};
+export {data};

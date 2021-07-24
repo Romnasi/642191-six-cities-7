@@ -2,8 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+// import {ActionCreator} from '../../store/action';
 import PropTypes from 'prop-types';
+import {closeSession} from '../../store/action';
 
 
 function SignOutLink({logout}) {
@@ -23,7 +24,7 @@ function SignOutLink({logout}) {
 
 const mapDispatchToProps = (dispatch) => ({
   logout() {
-    dispatch(ActionCreator.logout());
+    dispatch(closeSession());
   },
 });
 

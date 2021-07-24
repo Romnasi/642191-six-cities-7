@@ -54,9 +54,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  currentCity: state.currentCity,
+const mapStateToProps = ({USER, UI}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  currentCity: UI.currentCity,
 });
 
 

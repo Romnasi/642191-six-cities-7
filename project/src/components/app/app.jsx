@@ -62,9 +62,9 @@ App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  isDataLoaded: state.isDataLoaded,
+const mapStateToProps = ({USER, DATA}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  isDataLoaded: DATA.isDataLoaded,
 });
 
 export {App};

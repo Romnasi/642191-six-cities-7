@@ -33,12 +33,11 @@ function Header({isMainScreen, authorizationStatus}) {
 
 Header.propTypes = {
   isMainScreen: PropTypes.bool,
-  // isLoggedIn: PropTypes.bool,
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
+const mapStateToProps = ({USER}) => ({
+  authorizationStatus: USER.authorizationStatus,
 });
 
 

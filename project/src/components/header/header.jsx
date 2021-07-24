@@ -5,6 +5,7 @@ import ProfileLink from '../profile-link/profile-link';
 import SignOutLink from '../sign-out-link/sign-out-link';
 import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../../const';
+import {getAuthorizationStatus} from '../../store/user/selectors';
 
 
 function Header({isMainScreen, authorizationStatus}) {
@@ -36,8 +37,8 @@ Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus,
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 

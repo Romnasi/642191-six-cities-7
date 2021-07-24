@@ -12,6 +12,8 @@ import LoadingScreen from '../../loading-screen/loading-screen';
 import useSelectedPoint from '../../../hooks/use-selected-point';
 import useOffers from '../../../hooks/use-offers';
 import {changeCity} from '../../../store/action';
+import {getDataLoadedStatus, getOffers} from '../../../store/data/selectors';
+import {getCurrentCity} from '../../../store/ui/selectors';
 
 
 function Main({offers, currentCity, onChangeCity, fetchOffers, isDataLoaded}) {
@@ -70,10 +72,10 @@ Main.propTypes = {
   isDataLoaded: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({DATA, UI}) => ({
-  offers: DATA.offers,
-  currentCity: UI.currentCity,
-  isDataLoaded: DATA.isDataLoaded,
+const mapStateToProps = (state) => ({
+  offers: getOffers(state),
+  currentCity: getCurrentCity(state),
+  isDataLoaded: getDataLoadedStatus(state),
 });
 
 

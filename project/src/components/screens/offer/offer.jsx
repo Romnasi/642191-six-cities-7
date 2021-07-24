@@ -17,6 +17,14 @@ import {connect} from 'react-redux';
 import {fetchComments, fetchNearby, fetchOfferData} from '../../../store/api-actions';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import useOfferData from '../../../hooks/use-offer-data';
+import {
+  getComments,
+  getCurrentOffer,
+  getNearbyOffers,
+  getOfferLoadingStatus,
+  getOffers
+} from '../../../store/data/selectors';
+import {getAuthorizationStatus} from '../../../store/user/selectors';
 
 
 function Offer({
@@ -133,13 +141,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-const mapStateToProps = ({DATA, USER}) => ({
-  offers: DATA.offers,
-  isOfferLoading: DATA.isOfferLoading,
-  currentOffer: DATA.currentOffer,
-  comments: DATA.comments,
-  nearbyOffers: DATA.nearbyOffers,
-  authorizationStatus: USER.authorizationStatus,
+const mapStateToProps = (state) => ({
+  offers: getOffers(state),
+  isOfferLoading: getOfferLoadingStatus(state),
+  currentOffer: getCurrentOffer(state),
+  comments: getComments(state),
+  nearbyOffers: getNearbyOffers(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 export {Offer};

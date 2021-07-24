@@ -12,6 +12,8 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import {isUnknownAuth} from '../../utils/utils';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
+import {getAuthorizationStatus} from '../../store/user/selectors';
+import {getDataLoadedStatus} from '../../store/data/selectors';
 
 
 function App({
@@ -62,9 +64,9 @@ App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({USER, DATA}) => ({
-  authorizationStatus: USER.authorizationStatus,
-  isDataLoaded: DATA.isDataLoaded,
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  isDataLoaded: getDataLoadedStatus(state),
 });
 
 export {App};

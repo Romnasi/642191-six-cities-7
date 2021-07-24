@@ -7,6 +7,8 @@ import {AppRoute, AuthorizationStatus} from '../../../const';
 import {Link, Redirect} from 'react-router-dom';
 import currentCityProp from '../../city-list/current-city.prop';
 import SignInForm from '../../sign-in-form/sign-in-form';
+import {getAuthorizationStatus} from '../../../store/user/selectors';
+import {getCurrentCity} from '../../../store/ui/selectors';
 
 
 function SignIn ({onSubmit, authorizationStatus, currentCity}) {
@@ -54,9 +56,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const mapStateToProps = ({USER, UI}) => ({
-  authorizationStatus: USER.authorizationStatus,
-  currentCity: UI.currentCity,
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  currentCity: getCurrentCity(state),
 });
 
 

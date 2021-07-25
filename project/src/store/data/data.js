@@ -1,4 +1,5 @@
-import {ActionType} from '../action';
+import {loadComments, loadNearby, loadOffer, loadOffers} from '../action';
+import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {
   offers: [],
@@ -7,36 +8,29 @@ const initialState = {
   currentOffer: null,
   isDataLoaded: false,
   isOfferLoading: true,
+  isCommentsLoading: true,
+  isNearbyLoading: true,
 };
 
 
-const data = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.LOAD_OFFERS:
-      return {
-        ...state,
-        offers: action.payload,
-        isDataLoaded: true,
-      };
-    case ActionType.LOAD_OFFER:
-      return {
-        ...state,
-        currentOffer: action.payload,
-        isOfferLoading: false,
-      };
-    case ActionType.LOAD_NEARBY:
-      return {
-        ...state,
-        nearbyOffers: action.payload,
-      };
-    case ActionType.LOAD_COMMENTS:
-      return {
-        ...state,
-        comments: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+const data = createReducer(initialState, (builder) => {
+  builder
+    .addCase(loadOffers, (state, action) => {
+      state.isDataLoaded = true;
+      state.offers = action.payload;
+    })
+    .addCase(loadOffer, (state, action) => {
+      state.isOfferLoading = false;
+      state.currentOffer = action.payload;
+    })
+    .addCase(loadNearby, (state, action) => {
+      state.isNearbyLoading = false;
+      state.nearbyOffers = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.isCommentsLoading = false;
+      state.comments = action.payload;
+    });
+});
 
 export {data};

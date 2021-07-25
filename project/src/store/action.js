@@ -1,3 +1,5 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   CHANGE_CITY: 'main/changeCity',
   LOAD_OFFERS: 'data/loadOffers',
@@ -10,83 +12,39 @@ export const ActionType = {
 };
 
 
-// export const ActionCreator = {
-//   changeCity: (city) => ({
-//     type: ActionType.CHANGE_CITY,
-//     payload: city,
-//   }),
-//   loadOffers: (offers) => ({
-//     type: ActionType.LOAD_OFFERS,
-//     payload: offers,
-//   })
-//   ,loadOffer: (offer) => ({
-//     type: ActionType.LOAD_OFFER,
-//     payload: offer,
-//   }),
-//   loadNearby: (nearbyOffers) => ({
-//     type: ActionType.LOAD_NEARBY,
-//     payload: nearbyOffers,
-//   }),
-//   loadComments: (comments) => ({
-//     type: ActionType.LOAD_COMMENTS,
-//     payload: comments,
-//   }),
-//   requireAuthorization: (status) => ({
-//     type: ActionType.REQUIRED_AUTHORIZATION,
-//     payload: status,
-//   }),
-//   logout: () => ({
-//     type: ActionType.LOGOUT,
-//   }),
-//   redirectToRoute: (url) => ({
-//     type: ActionType.REDIRECT_TO_ROUTE,
-//     payload: url,
-//   }),
-// };
-
-
-export const changeCity = (city) => ({
-  type: ActionType.CHANGE_CITY,
+export const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({
   payload: city,
-});
+}));
 
 
-export const loadOffers = (offers) => ({
-  type: ActionType.LOAD_OFFERS,
+export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({
   payload: offers,
-});
+}));
 
 
-export const loadOffer = (offer) => ({
-  type: ActionType.LOAD_OFFER,
+export const loadOffer = createAction(ActionType.LOAD_OFFER, (offer) => ({
   payload: offer,
-});
+}));
 
 
-export const loadNearby = (nearbyOffers) => ({
-  type: ActionType.LOAD_NEARBY,
+export const loadNearby = createAction(ActionType.LOAD_NEARBY, (nearbyOffers) => ({
   payload: nearbyOffers,
-});
+}));
 
 
-export const loadComments = (comments) => ({
-  type: ActionType.LOAD_COMMENTS,
+export const loadComments = createAction(ActionType.LOAD_COMMENTS, (comments) => ({
   payload: comments,
-});
+}));
 
 
-export const requireAuthorization = (status) => ({
-  type: ActionType.REQUIRED_AUTHORIZATION,
+export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
   payload: status,
-});
+}));
 
 
-export const closeSession = () => ({
-  type: ActionType.LOGOUT,
-});
+export const closeSession = createAction(ActionType.LOGOUT);
 
 
-export const redirectToRoute = (url) => ({
-  type: ActionType.REDIRECT_TO_ROUTE,
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({
   payload: url,
-});
+}));

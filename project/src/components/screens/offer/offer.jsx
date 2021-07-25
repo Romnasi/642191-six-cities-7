@@ -18,8 +18,8 @@ import {fetchComments, fetchNearby, fetchOfferData} from '../../../store/api-act
 import LoadingScreen from '../../loading-screen/loading-screen';
 import useOfferData from '../../../hooks/use-offer-data';
 import {
-  getComments,
-  getCurrentOffer,
+  getComments, getCommentsLoadingStatus,
+  getCurrentOffer, getNearbyLoadingStatus,
   getNearbyOffers,
   getOfferLoadingStatus,
   getOffers
@@ -28,14 +28,14 @@ import {getAuthorizationStatus} from '../../../store/user/selectors';
 
 
 function Offer({
-  offers, nearbyOffers, isOfferLoading,
-  currentOffer, comments, authorizationStatus,
+  isOfferLoading, isCommentsLoading, isNearbyLoading,
+  offers, nearbyOffers, currentOffer, comments, authorizationStatus,
   fetchNearbyOffers, fetchOffer, fetchOfferComments,
 }) {
   const currentID = useParams().id;
   useOfferData(offers, currentID, fetchNearbyOffers, fetchOffer, fetchOfferComments);
 
-  if (!offers.length && isOfferLoading) {
+  if (!offers.length && isOfferLoading && isCommentsLoading && isNearbyLoading) {
     return <LoadingScreen />;
   }
 
@@ -113,6 +113,8 @@ function Offer({
 Offer.propTypes = {
   comments: reviewProp,
   isOfferLoading: PropTypes.bool.isRequired,
+  isCommentsLoading: PropTypes.bool.isRequired,
+  isNearbyLoading: PropTypes.bool.isRequired,
   fetchOfferComments: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   currentOffer: offerPropItem,
@@ -143,11 +145,13 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   offers: getOffers(state),
-  isOfferLoading: getOfferLoadingStatus(state),
   currentOffer: getCurrentOffer(state),
   comments: getComments(state),
   nearbyOffers: getNearbyOffers(state),
   authorizationStatus: getAuthorizationStatus(state),
+  isOfferLoading: getOfferLoadingStatus(state),
+  isCommentsLoading: getCommentsLoadingStatus(state),
+  isNearbyLoading: getNearbyLoadingStatus(state),
 });
 
 export {Offer};

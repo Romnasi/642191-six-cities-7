@@ -1,4 +1,4 @@
-import {loadComments, loadNearby, loadOffer, loadOffers} from '../action';
+import {loadComments, loadNearby, loadOffer, loadOffers, startLoadingStatus} from '../action';
 import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {
@@ -30,6 +30,9 @@ const data = createReducer(initialState, (builder) => {
     .addCase(loadComments, (state, action) => {
       state.isCommentsLoading = false;
       state.comments = action.payload;
+    })
+    .addCase(startLoadingStatus, (state, action) => {
+      state[action.payload] = true;
     });
 });
 

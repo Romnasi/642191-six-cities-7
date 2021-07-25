@@ -9,6 +9,7 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
   REDIRECT_TO_ROUTE: 'user/redirectToRoute',
+  START_LOADING_STATUS: 'data/startLoadingStatus',
 };
 
 
@@ -47,4 +48,8 @@ export const closeSession = createAction(ActionType.LOGOUT);
 
 export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({
   payload: url,
+}));
+
+export const startLoadingStatus = createAction(ActionType.START_LOADING_STATUS, (dataTypeStatus) => ({
+  payload: dataTypeStatus,
 }));

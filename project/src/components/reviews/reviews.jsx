@@ -10,7 +10,8 @@ import {AuthorizationStatus} from '../../const';
 
 function Reviews({reviews, authorizationStatus}) {
   const reviewAmount = reviews.length;
-  const sortedReviews = reviews.sort(sortByDateDown);
+  const reviewForSort = [...reviews];
+  const sortedReviews = reviewForSort.sort(sortByDateDown);
 
   const reviewItems = sortedReviews.map((review) => {
     const {comment, date, id, rating, user: {name, avatarUrl}} = review;

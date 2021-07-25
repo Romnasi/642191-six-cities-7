@@ -19,23 +19,24 @@ import LoadingScreen from '../../loading-screen/loading-screen';
 import useOfferData from '../../../hooks/use-offer-data';
 import {
   getComments, getCommentsLoadingStatus,
-  getCurrentOffer, getNearbyLoadingStatus,
+  getCurrentOffer, getDataLoadedStatus, getNearbyLoadingStatus,
   getNearbyOffers,
   getOfferLoadingStatus,
   getOffers
 } from '../../../store/data/selectors';
 import {getAuthorizationStatus} from '../../../store/user/selectors';
+import {startLoadingStatus} from '../../../store/action';
 
 
 function Offer({
-  isOfferLoading, isCommentsLoading, isNearbyLoading,
+  isOfferLoading, isCommentsLoading, isNearbyLoading, isDataLoaded,
   offers, nearbyOffers, currentOffer, comments, authorizationStatus,
   fetchNearbyOffers, fetchOffer, fetchOfferComments,
 }) {
   const currentID = useParams().id;
   useOfferData(offers, currentID, fetchNearbyOffers, fetchOffer, fetchOfferComments);
 
-  if (!offers.length && isOfferLoading && isCommentsLoading && isNearbyLoading) {
+  if ((!isDataLoaded && isOfferLoading) || isCommentsLoading || isNearbyLoading) {
     return <LoadingScreen />;
   }
 
@@ -115,6 +116,7 @@ Offer.propTypes = {
   isOfferLoading: PropTypes.bool.isRequired,
   isCommentsLoading: PropTypes.bool.isRequired,
   isNearbyLoading: PropTypes.bool.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
   fetchOfferComments: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   currentOffer: offerPropItem,
@@ -132,12 +134,15 @@ Offer.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchOffer(id) {
+    dispatch(startLoadingStatus('isOfferLoading'));
     return dispatch(fetchOfferData(id));
   },
   fetchNearbyOffers(id) {
+    dispatch(startLoadingStatus('isNearbyLoading'));
     return dispatch(fetchNearby(id));
   },
   fetchOfferComments(id) {
+    dispatch(startLoadingStatus('isCommentsLoading'));
     return dispatch(fetchComments(id));
   },
 });
@@ -152,6 +157,7 @@ const mapStateToProps = (state) => ({
   isOfferLoading: getOfferLoadingStatus(state),
   isCommentsLoading: getCommentsLoadingStatus(state),
   isNearbyLoading: getNearbyLoadingStatus(state),
+  isDataLoaded: getDataLoadedStatus(state),
 });
 
 export {Offer};

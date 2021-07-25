@@ -46,4 +46,3 @@ export default memo(SortList,  (
   prevProps,
   nextProps,
 ) => prevProps.activeSort === nextProps.activeSort);
-// export default memo(SortList);

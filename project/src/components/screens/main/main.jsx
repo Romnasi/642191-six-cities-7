@@ -1,9 +1,6 @@
-import React from 'react';
-import offerProp from '../main/offers.prop';
-import currentCityProp from '../../city-list/current-city.prop';
-import PropTypes from 'prop-types';
+import React, {useCallback} from 'react';
 import Header from '../../header/header';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import CityList from '../../city-list/city-list';
 import MainContent from '../../main-content/main-content';
 import MainEmpty from '../../main-empty/main-empty';
@@ -16,7 +13,17 @@ import {getDataLoadedStatus, getOffers} from '../../../store/data/selectors';
 import {getCurrentCity} from '../../../store/ui/selectors';
 
 
-function Main({offers, currentCity, onChangeCity, fetchOffers, isDataLoaded}) {
+function Main(props) {
+  const offers = useSelector(getOffers);
+  const currentCity = useSelector(getCurrentCity);
+  const isDataLoaded = useSelector(getDataLoadedStatus);
+
+  const dispatch = useDispatch();
+
+  const onChangeCity = useCallback((city) => dispatch(changeCity(city)), [dispatch]);
+  const fetchOffers = useCallback(() => dispatch(fetchOffersList()), [dispatch]);
+
+
   useOffers(fetchOffers);
   const [selectedPoint, onListItemHover] = useSelectedPoint(offers);
 
@@ -64,29 +71,4 @@ function Main({offers, currentCity, onChangeCity, fetchOffers, isDataLoaded}) {
   );
 }
 
-Main.propTypes = {
-  fetchOffers: PropTypes.func.isRequired,
-  offers: offerProp,
-  onChangeCity: PropTypes.func.isRequired,
-  currentCity: currentCityProp,
-  isDataLoaded: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  offers: getOffers(state),
-  currentCity: getCurrentCity(state),
-  isDataLoaded: getDataLoadedStatus(state),
-});
-
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeCity(city) {
-    dispatch(changeCity(city));
-  },
-  fetchOffers(){
-    dispatch(fetchOffersList());
-  },
-});
-
-export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

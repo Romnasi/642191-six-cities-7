@@ -1,13 +1,17 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import {connect} from 'react-redux';
-// import {ActionCreator} from '../../store/action';
-import PropTypes from 'prop-types';
+import {useDispatch} from 'react-redux';
 import {closeSession} from '../../store/action';
 
 
-function SignOutLink({logout}) {
+function SignOutLink(props) {
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(closeSession());
+  };
+
   return (
     <Link
       className="header__nav-link"
@@ -22,15 +26,4 @@ function SignOutLink({logout}) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  logout() {
-    dispatch(closeSession());
-  },
-});
-
-SignOutLink.propTypes = {
-  logout: PropTypes.func.isRequired,
-};
-
-export {SignOutLink};
-export default connect(null, mapDispatchToProps)(SignOutLink);
+export default SignOutLink;

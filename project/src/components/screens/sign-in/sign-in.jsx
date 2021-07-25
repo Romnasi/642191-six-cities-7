@@ -1,17 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Header from '../../header/header';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {login} from '../../../store/api-actions';
 import {AppRoute, AuthorizationStatus} from '../../../const';
 import {Link, Redirect} from 'react-router-dom';
-import currentCityProp from '../../city-list/current-city.prop';
 import SignInForm from '../../sign-in-form/sign-in-form';
 import {getAuthorizationStatus} from '../../../store/user/selectors';
 import {getCurrentCity} from '../../../store/ui/selectors';
 
 
-function SignIn ({onSubmit, authorizationStatus, currentCity}) {
+function SignIn (props) {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const currentCity = useSelector(getCurrentCity);
+
+  const dispatch = useDispatch();
+  const onSubmit = (authData) => dispatch(login(authData));
+
   if (authorizationStatus === AuthorizationStatus.AUTH) {
     return <Redirect to={AppRoute.ROOT} />;
   }
@@ -44,23 +48,4 @@ function SignIn ({onSubmit, authorizationStatus, currentCity}) {
   );
 }
 
-SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  currentCity: currentCityProp,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    return dispatch(login(authData));
-  },
-});
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-  currentCity: getCurrentCity(state),
-});
-
-
-export {SignIn};
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default SignIn;

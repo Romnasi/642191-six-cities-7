@@ -1,9 +1,5 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {useParams} from 'react-router-dom';
-import offerProps from '../../screens/main/offers.prop';
-import offerPropItem from '../../screens/main/offer.prop';
-import reviewProp from '../../reviews/review.prop';
-import PropTypes from 'prop-types';
 import Header from '../../header/header';
 import Gallery from '../../gallery/gallery';
 import Amenities from '../../amenities/amenities';
@@ -13,7 +9,7 @@ import Host from '../../host/host';
 import NearPlaces from '../../near-places/near-places';
 import {Screen} from '../../../const';
 import Map from '../../map/map';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {fetchComments, fetchNearby, fetchOfferData} from '../../../store/api-actions';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import useOfferData from '../../../hooks/use-offer-data';
@@ -27,12 +23,50 @@ import {
 import {getAuthorizationStatus} from '../../../store/user/selectors';
 import {startLoadingStatus} from '../../../store/action';
 
+const LOADING_STATE = {
+  OFFER: 'isOfferLoading',
+  NEARBY: 'isNearbyLoading',
+  COMMENTS: 'isCommentsLoading',
+};
 
-function Offer({
-  isOfferLoading, isCommentsLoading, isNearbyLoading, isDataLoaded,
-  offers, nearbyOffers, currentOffer, comments, authorizationStatus,
-  fetchNearbyOffers, fetchOffer, fetchOfferComments,
-}) {
+function Offer(props) {
+  const isOfferLoading = useSelector(getOfferLoadingStatus);
+  const isCommentsLoading = useSelector(getCommentsLoadingStatus);
+  const isNearbyLoading = useSelector(getNearbyLoadingStatus);
+  const isDataLoaded = useSelector(getDataLoadedStatus);
+
+  const offers = useSelector(getOffers);
+  const nearbyOffers = useSelector(getNearbyOffers);
+  const currentOffer = useSelector(getCurrentOffer);
+  const comments = useSelector(getComments);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+
+  const dispatch = useDispatch();
+
+  const fetchOffer = useCallback((id) => {
+    dispatch(startLoadingStatus(LOADING_STATE.OFFER));
+    return dispatch(fetchOfferData(id));
+  },
+  [dispatch],
+  );
+
+  const fetchNearbyOffers = useCallback(
+    (id) => {
+      dispatch(startLoadingStatus(LOADING_STATE.NEARBY));
+      return dispatch(fetchNearby(id));
+    },
+    [dispatch],
+  );
+
+  const fetchOfferComments = useCallback(
+    (id) => {
+      dispatch(startLoadingStatus(LOADING_STATE.COMMENTS));
+      return dispatch(fetchComments(id));
+    },
+    [dispatch],
+  );
+
+
   const currentID = useParams().id;
   useOfferData(offers, currentID, fetchNearbyOffers, fetchOffer, fetchOfferComments);
 
@@ -111,54 +145,5 @@ function Offer({
   );
 }
 
-Offer.propTypes = {
-  comments: reviewProp,
-  isOfferLoading: PropTypes.bool.isRequired,
-  isCommentsLoading: PropTypes.bool.isRequired,
-  isNearbyLoading: PropTypes.bool.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
-  fetchOfferComments: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  currentOffer: offerPropItem,
-  fetchOffer: PropTypes.func.isRequired,
-  fetchNearbyOffers: PropTypes.func.isRequired,
-  offers: offerProps,
-  nearbyOffers: offerProps,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-    }),
-  }),
-};
 
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchOffer(id) {
-    dispatch(startLoadingStatus('isOfferLoading'));
-    return dispatch(fetchOfferData(id));
-  },
-  fetchNearbyOffers(id) {
-    dispatch(startLoadingStatus('isNearbyLoading'));
-    return dispatch(fetchNearby(id));
-  },
-  fetchOfferComments(id) {
-    dispatch(startLoadingStatus('isCommentsLoading'));
-    return dispatch(fetchComments(id));
-  },
-});
-
-
-const mapStateToProps = (state) => ({
-  offers: getOffers(state),
-  currentOffer: getCurrentOffer(state),
-  comments: getComments(state),
-  nearbyOffers: getNearbyOffers(state),
-  authorizationStatus: getAuthorizationStatus(state),
-  isOfferLoading: getOfferLoadingStatus(state),
-  isCommentsLoading: getCommentsLoadingStatus(state),
-  isNearbyLoading: getNearbyLoadingStatus(state),
-  isDataLoaded: getDataLoadedStatus(state),
-});
-
-export {Offer};
-export default connect(mapStateToProps, mapDispatchToProps)(Offer);
+export default Offer;

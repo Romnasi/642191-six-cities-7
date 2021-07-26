@@ -1,29 +1,34 @@
-import React, {useEffect, useState} from 'react';
-import offerProp from '../main/offers.prop';
-import currentCityProp from '../../city-list/current-city.prop';
-import PropTypes from 'prop-types';
+import React, {useCallback} from 'react';
 import Header from '../../header/header';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../../store/action';
+import {useSelector, useDispatch} from 'react-redux';
 import CityList from '../../city-list/city-list';
 import MainContent from '../../main-content/main-content';
 import MainEmpty from '../../main-empty/main-empty';
 import {fetchOffersList} from '../../../store/api-actions';
 import LoadingScreen from '../../loading-screen/loading-screen';
+import useSelectedPoint from '../../../hooks/use-selected-point';
+import useOffers from '../../../hooks/use-offers';
+import {changeCity} from '../../../store/action';
+import {getDataLoadedStatus, getOffers} from '../../../store/data/selectors';
+import {getCurrentCity} from '../../../store/ui/selectors';
 
 
-function Main({offers, currentCity, changeCity, fetchOffers, isDataLoaded}) {
-  const [selectedPoint, setSelectedPoint] = useState({});
+function Main(props) {
+  const offers = useSelector(getOffers);
+  const currentCity = useSelector(getCurrentCity);
+  const isDataLoaded = useSelector(getDataLoadedStatus);
 
-  useEffect(() => {
-    fetchOffers();
-  }, [fetchOffers]);
+  const dispatch = useDispatch();
 
+  const onChangeCity = useCallback((city) => dispatch(changeCity(city)), [dispatch]);
+  const fetchOffers = useCallback(() => dispatch(fetchOffersList()), [dispatch]);
+
+
+  useOffers(fetchOffers);
+  const [selectedPoint, onListItemHover] = useSelectedPoint(offers);
 
   if (!isDataLoaded) {
-    return (
-      <LoadingScreen />
-    );
+    return <LoadingScreen />;
   }
 
   const currentOffers = offers
@@ -31,11 +36,6 @@ function Main({offers, currentCity, changeCity, fetchOffers, isDataLoaded}) {
 
   const offersCount = currentOffers.length;
   const isEmpty = offersCount < 1;
-
-  const onListItemHover = (id) => {
-    const currentPoint = offers.find((offer) => offer.id === id).location;
-    setSelectedPoint(currentPoint);
-  };
 
   return (
     <div className="page page--gray page--main">
@@ -45,7 +45,7 @@ function Main({offers, currentCity, changeCity, fetchOffers, isDataLoaded}) {
 
         <CityList
           currentCity={currentCity}
-          changeCity={changeCity}
+          changeCity={onChangeCity}
         />
 
         <div className="cities">
@@ -71,29 +71,4 @@ function Main({offers, currentCity, changeCity, fetchOffers, isDataLoaded}) {
   );
 }
 
-Main.propTypes = {
-  fetchOffers: PropTypes.func.isRequired,
-  offers: offerProp,
-  changeCity: PropTypes.func.isRequired,
-  currentCity: currentCityProp,
-  isDataLoaded: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  offers: state.offers,
-  currentCity: state.currentCity,
-  isDataLoaded: state.isDataLoaded,
-});
-
-
-const mapDispatchToProps = (dispatch) => ({
-  changeCity(city) {
-    dispatch(ActionCreator.changeCity(city));
-  },
-  fetchOffers(){
-    dispatch(fetchOffersList());
-  },
-});
-
-export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

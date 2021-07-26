@@ -31,7 +31,7 @@ function NotFoundScreen() {
               marginTop: '15px',
               textDecoration: 'underline',
             }}
-            href="/"
+            to="/"
           >
             Go back to the main page
           </Link>

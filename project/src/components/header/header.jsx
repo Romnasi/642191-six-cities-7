@@ -1,13 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Logo from '../logo/logo';
 import ProfileLink from '../profile-link/profile-link';
 import SignOutLink from '../sign-out-link/sign-out-link';
-import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../../const';
+import {useSelector} from 'react-redux';
+import {getAuthorizationStatus} from '../../store/user/selectors';
 
 
-function Header({isMainScreen, authorizationStatus}) {
+function Header(props) {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
   const isLoggedIn = authorizationStatus === AuthorizationStatus.AUTH;
 
   return (
@@ -15,7 +16,7 @@ function Header({isMainScreen, authorizationStatus}) {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Logo isMainScreen={isMainScreen} />
+            <Logo />
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
@@ -31,16 +32,4 @@ function Header({isMainScreen, authorizationStatus}) {
   );
 }
 
-Header.propTypes = {
-  isMainScreen: PropTypes.bool,
-  // isLoggedIn: PropTypes.bool,
-  authorizationStatus: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-});
-
-
-export {Header};
-export default connect(mapStateToProps, null)(Header);
+export default Header;

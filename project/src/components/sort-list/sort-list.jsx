@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Sorter} from '../../const';
 import PropTypes from 'prop-types';
 
@@ -42,4 +42,7 @@ SortList.propTypes = {
 };
 
 
-export default SortList;
+export default memo(SortList,  (
+  prevProps,
+  nextProps,
+) => prevProps.activeSort === nextProps.activeSort);

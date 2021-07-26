@@ -1,9 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback} from 'react';
 import {useParams} from 'react-router-dom';
-import offerProps from '../../screens/main/offers.prop';
-import offerPropItem from '../../screens/main/offer.prop';
-import reviewProp from '../../reviews/review.prop';
-import PropTypes from 'prop-types';
 import Header from '../../header/header';
 import Gallery from '../../gallery/gallery';
 import Amenities from '../../amenities/amenities';
@@ -13,38 +9,68 @@ import Host from '../../host/host';
 import NearPlaces from '../../near-places/near-places';
 import {Screen} from '../../../const';
 import Map from '../../map/map';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {fetchComments, fetchNearby, fetchOfferData} from '../../../store/api-actions';
 import LoadingScreen from '../../loading-screen/loading-screen';
+import useOfferData from '../../../hooks/use-offer-data';
+import {
+  getComments, getCommentsLoadingStatus,
+  getCurrentOffer, getDataLoadedStatus, getNearbyLoadingStatus,
+  getNearbyOffers,
+  getOfferLoadingStatus,
+  getOffers
+} from '../../../store/data/selectors';
+import {getAuthorizationStatus} from '../../../store/user/selectors';
+import {startLoadingStatus} from '../../../store/action';
+
+const LOADING_STATE = {
+  OFFER: 'isOfferLoading',
+  NEARBY: 'isNearbyLoading',
+  COMMENTS: 'isCommentsLoading',
+};
+
+function Offer(props) {
+  const isOfferLoading = useSelector(getOfferLoadingStatus);
+  const isCommentsLoading = useSelector(getCommentsLoadingStatus);
+  const isNearbyLoading = useSelector(getNearbyLoadingStatus);
+  const isDataLoaded = useSelector(getDataLoadedStatus);
+
+  const offers = useSelector(getOffers);
+  const nearbyOffers = useSelector(getNearbyOffers);
+  const currentOffer = useSelector(getCurrentOffer);
+  const comments = useSelector(getComments);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+
+  const dispatch = useDispatch();
+
+  const fetchOffer = useCallback((id) => {
+    dispatch(startLoadingStatus(LOADING_STATE.OFFER));
+    return dispatch(fetchOfferData(id));
+  },
+  [dispatch],
+  );
+
+  const fetchNearbyOffers = useCallback(
+    (id) => {
+      dispatch(startLoadingStatus(LOADING_STATE.NEARBY));
+      return dispatch(fetchNearby(id));
+    },
+    [dispatch],
+  );
+
+  const fetchOfferComments = useCallback(
+    (id) => {
+      dispatch(startLoadingStatus(LOADING_STATE.COMMENTS));
+      return dispatch(fetchComments(id));
+    },
+    [dispatch],
+  );
 
 
-function Offer({
-  offers, nearbyOffers,
-  currentOffer, comments, authorizationStatus,
-  fetchNearbyOffers, fetchOffer, fetchOfferComments,
-}) {
   const currentID = useParams().id;
-  const [isOfferLoading, setIsOfferLoading] = useState(true);
+  useOfferData(offers, currentID, fetchNearbyOffers, fetchOffer, fetchOfferComments);
 
-
-  useEffect(() => {
-    if (!offers.length) {
-      setIsOfferLoading(true);
-      fetchOffer(currentID)
-        .then(() => setIsOfferLoading(false));
-    }
-  }, [currentID, fetchOffer, offers]);
-
-  useEffect(() => {
-    fetchNearbyOffers(currentID);
-  }, [currentID, fetchNearbyOffers]);
-
-  useEffect(() => {
-    fetchOfferComments(currentID);
-  }, [currentID, fetchOfferComments]);
-
-
-  if (!offers.length && isOfferLoading) {
+  if ((!isDataLoaded && isOfferLoading) || isCommentsLoading || isNearbyLoading) {
     return <LoadingScreen />;
   }
 
@@ -56,8 +82,8 @@ function Offer({
   }
 
   const {
-    images, type, isPremium, title, rating,
-    isFavorite, bedrooms, maxAdults,
+    isFavorite, isPremium,
+    rating, bedrooms, maxAdults, images, type, title,
     price, goods, host, description, location,
   } = currentPlace;
 
@@ -119,43 +145,5 @@ function Offer({
   );
 }
 
-Offer.propTypes = {
-  comments: reviewProp,
-  fetchOfferComments: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  currentOffer: offerPropItem,
-  fetchOffer: PropTypes.func.isRequired,
-  fetchNearbyOffers: PropTypes.func.isRequired,
-  offers: offerProps,
-  nearbyOffers: offerProps,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-    }),
-  }),
-};
 
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchOffer(id) {
-    return dispatch(fetchOfferData(id));
-  },
-  fetchNearbyOffers(id) {
-    return dispatch(fetchNearby(id));
-  },
-  fetchOfferComments(id) {
-    return dispatch(fetchComments(id));
-  },
-});
-
-
-const mapStateToProps = (state) => ({
-  offers: state.offers,
-  currentOffer: state.currentOffer,
-  comments: state.comments,
-  nearbyOffers: state.nearbyOffers,
-  authorizationStatus: state.authorizationStatus,
-});
-
-export {Offer};
-export default connect(mapStateToProps, mapDispatchToProps)(Offer);
+export default Offer;

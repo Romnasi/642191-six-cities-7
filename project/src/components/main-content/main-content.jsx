@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import OfferList from '../offer-list/offer-list';
 import Map from '../map/map';
 import {Screen} from '../../const';
@@ -7,18 +7,11 @@ import offerProp from '../screens/main/offers.prop';
 import pointProp from '../map/point.prop';
 import currentCityProp from '../city-list/current-city.prop';
 import SortList from '../sort-list/sort-list';
-import {getSortedOffers} from '../../utils/sort';
+import useActiveSort from '../../hooks/use-active-sort';
 
 
 function MainContent({offersCount, currentCity, currentOffers, selectedPoint, onListItemHover}) {
-
-  const [activeSort, setActiveSort] = useState('popular');
-
-  const onSorterClick = (id) => {
-    setActiveSort(id);
-  };
-
-  const sortedOffers = getSortedOffers(currentOffers.slice(), activeSort);
+  const [activeSort, sortedOffers, onSorterClick] = useActiveSort(currentOffers);
 
   return (
     <div className="cities__places-container container">

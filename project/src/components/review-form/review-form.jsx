@@ -1,65 +1,19 @@
-import React, {useState} from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
 import {postComment} from '../../store/api-actions';
-import PropTypes from 'prop-types';
-import {useParams} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import useReviewInputs from '../../hooks/use-review-inputs';
 
-const Comment = {
-  MIN_LENGTH: 50,
-  MAX_LENGTH: 300,
-};
 
 const grades = ['perfect', 'good', 'not bad', 'badly', 'terribly'];
 const maxRate = grades.length;
 
 
-function ReviewForm({postUserComment}) {
-  const [formData, setFormData] = useState({
-    comment: '',
-    rating: null,
-    isLoading: false,
-  });
-  const [isError400, setIsError400] = useState(false);
-  const currentID = useParams().id;
+function ReviewForm(props) {
+  const dispatch = useDispatch();
 
-  const commentLength = formData.comment.length;
+  const postUserComment = (id, {comment, rating}) => dispatch(postComment(id, {comment, rating}));
 
-  const isDisabled = !(commentLength >= Comment.MIN_LENGTH
-    && commentLength <= Comment.MAX_LENGTH
-    && formData.rating !== null
-    && !formData.isLoading);
-
-
-  const resetState = () => {
-    setFormData((state) => ({
-      ...state,
-      comment: '',
-      rating: null,
-    }));
-  };
-
-
-  const toggleDisableForm = () => {
-    setFormData((state) => ({
-      ...state,
-      isLoading: !state.isLoading,
-    }));
-  };
-
-
-  const onHandleSubmit = (evt) => {
-    evt.preventDefault();
-    toggleDisableForm();
-
-    postUserComment(currentID, formData)
-      .then(() => {
-        resetState();
-      })
-      .catch(() => setIsError400(true))
-      .finally(() => {
-        toggleDisableForm();
-      });
-  };
+  const [isError400, isDisabled, formData, setFormData, onHandleSubmit] = useReviewInputs(postUserComment);
 
 
   return (
@@ -150,18 +104,4 @@ function ReviewForm({postUserComment}) {
   );
 }
 
-
-ReviewForm.propTypes = {
-  postUserComment: PropTypes.func.isRequired,
-};
-
-
-const mapDispatchToProps = (dispatch) => ({
-  postUserComment(id, {comment, rating}) {
-    return dispatch(postComment(id, {comment, rating}));
-  },
-});
-
-
-export {ReviewForm};
-export default connect(null, mapDispatchToProps)(ReviewForm);
+export default ReviewForm;

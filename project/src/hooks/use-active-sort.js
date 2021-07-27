@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useMemo} from 'react';
 import {getSortedOffers} from '../utils/sort';
 
 
@@ -9,7 +9,7 @@ const useActiveSort = (currentOffers) => {
     setActiveSort(id);
   };
 
-  const sortedOffers = getSortedOffers(currentOffers.slice(), activeSort);
+  const sortedOffers = useMemo(() => getSortedOffers(currentOffers.slice(), activeSort), [currentOffers, activeSort]);
 
   return [activeSort, sortedOffers, onSorterClick];
 };

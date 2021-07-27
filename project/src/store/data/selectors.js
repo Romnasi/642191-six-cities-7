@@ -1,4 +1,6 @@
 import {NameSpace} from '../root-reducer';
+import {createSelector} from 'reselect';
+import {getCurrentCity} from '../ui/selectors';
 
 export const getOffers = (state) => state[NameSpace.DATA].offers;
 export const getComments = (state) => state[NameSpace.DATA].comments;
@@ -8,3 +10,8 @@ export const getOfferLoadingStatus = (state) => state[NameSpace.DATA].isOfferLoa
 export const getDataLoadedStatus = (state) => state[NameSpace.DATA].isDataLoaded;
 export const getCommentsLoadingStatus = (state) => state[NameSpace.DATA].isCommentsLoading;
 export const getNearbyLoadingStatus = (state) => state[NameSpace.DATA].isNearbyLoading;
+
+export const getCurrentOffers = createSelector(
+  [getOffers, getCurrentCity],
+  (offers, currentCity) => offers.filter(({city: { name }}) => name === currentCity),
+);

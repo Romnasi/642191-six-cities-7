@@ -1,15 +1,17 @@
 import {createAction} from '@reduxjs/toolkit';
 
 export const ActionType = {
-  CHANGE_CITY: 'main/changeCity',
+  CHANGE_CITY: 'ui/changeCity',
+  REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOAD_OFFERS: 'data/loadOffers',
   LOAD_OFFER: 'data/loadOffer',
   LOAD_NEARBY: 'data/loadNearby',
   LOAD_COMMENTS: 'data/loadComments',
-  REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  LOAD_FAVORITES: 'data/loadFavorites',
+  START_LOADING_STATUS: 'data/startLoadingStatus',
+  UPDATE_OFFER: 'data/updateOffer',
   LOGOUT: 'user/logout',
   REDIRECT_TO_ROUTE: 'user/redirectToRoute',
-  START_LOADING_STATUS: 'data/startLoadingStatus',
 };
 
 
@@ -52,4 +54,12 @@ export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) 
 
 export const startLoadingStatus = createAction(ActionType.START_LOADING_STATUS, (dataTypeStatus) => ({
   payload: dataTypeStatus,
+}));
+
+export const loadFavorites = createAction(ActionType.LOAD_FAVORITES, (favorites) => ({
+  payload: favorites,
+}));
+
+export const updateOffer = createAction(ActionType.UPDATE_OFFER, (offer) => ({
+  payload: offer,
 }));

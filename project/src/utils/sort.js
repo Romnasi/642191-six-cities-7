@@ -45,3 +45,16 @@ export const getSortedOffers = (currentOffers, activeSort) => {
       return currentOffers;
   }
 };
+
+
+export const getSortedByCitiesData = (favoriteOffers) =>  Object
+  .entries(favoriteOffers.reduce((total, cityData) => {
+    const {city: {name}} = cityData;
+
+    if (!total[name]) {
+      total[name] = [cityData];
+    } else {
+      total[name].push(cityData);
+    }
+    return total;
+  }, {}));

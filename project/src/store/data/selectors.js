@@ -10,6 +10,8 @@ export const getOfferLoadingStatus = (state) => state[NameSpace.DATA].isOfferLoa
 export const getDataLoadedStatus = (state) => state[NameSpace.DATA].isDataLoaded;
 export const getCommentsLoadingStatus = (state) => state[NameSpace.DATA].isCommentsLoading;
 export const getNearbyLoadingStatus = (state) => state[NameSpace.DATA].isNearbyLoading;
+export const getFavoriteLoadingStatus = (state) => state[NameSpace.DATA].isFavoriteLoading;
+export const getFavorites = (state) => state[NameSpace.DATA].favorites;
 
 export const getCurrentOffers = createSelector(
   [getOffers, getCurrentCity],

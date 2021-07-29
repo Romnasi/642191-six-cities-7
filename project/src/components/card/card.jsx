@@ -3,45 +3,21 @@ import PropTypes from 'prop-types';
 import {placeTypes, Screen} from '../../const';
 import {convertRating} from '../../utils/utils';
 import {Link} from 'react-router-dom';
-
-
-const ScreenClass = {
-  ARTICLE: {
-    MAIN: 'cities__place-card',
-    FAVORITES: 'favorites__card',
-    OFFER: 'near-places__card',
-  },
-  IMAGE_WRAPPER: {
-    MAIN: 'cities__image-wrapper',
-    FAVORITES: 'favorites__image-wrapper',
-    OFFER: 'near-places__image-wrapper',
-  },
-};
-
-const Preview = {
-  WIDTH: {
-    MAIN: 260,
-    FAVORITES: 150,
-    OFFER: 260,
-  },
-  HEIGHT: {
-    MAIN: 200,
-    FAVORITES: 110,
-    OFFER: 200,
-  },
-};
+import BookmarkButton from '../bookmark-button/bookmark-button';
+import {ScreenClass, Preview} from '../../const';
 
 
 function Card({
-  cardType, title, type, price, previewImage, isPremium, isFavorite, rating, id,
+  cardType, title, type, price, previewImage, isPremium, rating, id, isFavorite,
   onListItemHover = () => {},
 }) {
 
   const ratingWidth = convertRating(rating);
 
-  function handleCardMouseOver() {
+  const handleCardMouseOver = () => {
     onListItemHover(id);
-  }
+  };
+
 
   return (
     <article
@@ -73,19 +49,12 @@ function Card({
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            className={
-              `place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`
-            }
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"/>
-            </svg>
-            <span className="visually-hidden">
-              {isFavorite ? 'In bookmarks' : 'To bookmarks'}
-            </span>
-          </button>
+
+          <BookmarkButton
+            id={id}
+            isFavorite={isFavorite}
+          />
+
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

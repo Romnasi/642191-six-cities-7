@@ -2,7 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute, Screen} from '../../const';
 import Card from '../card/card';
-import offerProp from '../screens/main/offers.prop';
+import offerProps from '../screens/main/offers.prop';
+import PropTypes from 'prop-types';
 
 
 function FavoritesList({sortByCitiesData}) {
@@ -37,7 +38,11 @@ function FavoritesList({sortByCitiesData}) {
 }
 
 FavoritesList.propTypes = {
-  sortByCitiesData: offerProp,
+  sortByCitiesData: PropTypes.arrayOf(
+    PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.string, offerProps]),
+    ),
+  ),
 };
 
 export default FavoritesList;

@@ -73,4 +73,32 @@ export const APIRoute = {
   LOGIN: '/login',
   LOGOUT: '/logout',
   COMMENTS: '/comments',
+  FAVORITE: '/favorite',
+};
+
+
+export const ScreenClass = {
+  ARTICLE: {
+    MAIN: 'cities__place-card',
+    FAVORITES: 'favorites__card',
+    OFFER: 'near-places__card',
+  },
+  IMAGE_WRAPPER: {
+    MAIN: 'cities__image-wrapper',
+    FAVORITES: 'favorites__image-wrapper',
+    OFFER: 'near-places__image-wrapper',
+  },
+};
+
+export const Preview = {
+  WIDTH: {
+    MAIN: 260,
+    FAVORITES: 150,
+    OFFER: 260,
+  },
+  HEIGHT: {
+    MAIN: 200,
+    FAVORITES: 110,
+    OFFER: 200,
+  },
 };

@@ -9,15 +9,14 @@ import LoadingScreen from '../../loading-screen/loading-screen';
 import useSelectedPoint from '../../../hooks/use-selected-point';
 import useOffers from '../../../hooks/use-offers';
 import {changeCity} from '../../../store/action';
-import {getDataLoadedStatus, getOffers} from '../../../store/data/selectors';
+import {getCurrentOffers, getDataLoadedStatus} from '../../../store/data/selectors';
 import {getCurrentCity} from '../../../store/ui/selectors';
 
 
 function Main(props) {
-  const offers = useSelector(getOffers);
   const currentCity = useSelector(getCurrentCity);
   const isDataLoaded = useSelector(getDataLoadedStatus);
-
+  const currentOffers = useSelector(getCurrentOffers);
   const dispatch = useDispatch();
 
   const onChangeCity = useCallback((city) => dispatch(changeCity(city)), [dispatch]);
@@ -25,14 +24,11 @@ function Main(props) {
 
 
   useOffers(fetchOffers);
-  const [selectedPoint, onListItemHover] = useSelectedPoint(offers);
+  const [selectedPoint, onListItemHover] = useSelectedPoint(currentOffers);
 
   if (!isDataLoaded) {
     return <LoadingScreen />;
   }
-
-  const currentOffers = offers
-    .filter(({city: { name }}) => name === currentCity);
 
   const offersCount = currentOffers.length;
   const isEmpty = offersCount < 1;

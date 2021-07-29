@@ -50,3 +50,26 @@ export const adaptCommentToClient = (comment) => {
 
   return adaptComment;
 };
+
+
+// export const adaptFavoriteStatusToClient = (comment) => {
+//   const adaptComment = Object.assign(
+//     {},
+//     comment,
+//     {
+//       user: Object.assign(
+//         {},
+//         comment.user,
+//         {
+//           avatarUrl: comment.user.avatar_url,
+//           isPro: comment.user.is_pro,
+//         },
+//       ),
+//     },
+//   );
+//
+//   delete adaptComment.user.avatar_url;
+//   delete adaptComment.user.is_pro;
+//
+//   return adaptComment;
+// };

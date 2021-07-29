@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {placeTypes} from '../../const';
 import {convertRating, capitalizeFirstLetter} from '../../utils/utils';
+import BookmarkButton from '../bookmark-button/bookmark-button';
+import {Screen} from '../../const';
 
 
 function PlaceFeatures({
@@ -13,6 +15,7 @@ function PlaceFeatures({
   bedrooms,
   maxAdults,
   price,
+  id,
 }) {
   const ratingWidth = convertRating(rating);
   const typeWithCapitalLetter = capitalizeFirstLetter(type);
@@ -25,15 +28,13 @@ function PlaceFeatures({
         <h1 className="property__name">
           {title}
         </h1>
-        <button
-          className={`property__bookmark-button ${isFavorite ? 'property__bookmark-button--active' : ''} button`}
-          type="button"
-        >
-          <svg className="property__bookmark-icon" width="31" height="33">
-            <use xlinkHref="#icon-bookmark" />
-          </svg>
-          <span className="visually-hidden">{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
-        </button>
+
+        <BookmarkButton
+          isFavorite={isFavorite}
+          id={id}
+          screen={Screen.OFFER}
+        />
+
       </div>
       <div className="property__rating rating">
         <div className="property__stars rating__stars">
@@ -75,6 +76,7 @@ PlaceFeatures.propTypes = {
   bedrooms: PropTypes.number.isRequired,
   maxAdults: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 

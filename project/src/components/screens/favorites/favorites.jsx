@@ -24,7 +24,7 @@ function Favorites () {
     if (!isDataLoaded) {
       fetchFavorite();
     }
-  }, [fetchFavorite]);
+  }, [fetchFavorite, isDataLoaded]);
 
 
   if (!isDataLoaded && isFavoriteLoading) {

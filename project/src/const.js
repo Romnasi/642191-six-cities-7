@@ -102,3 +102,20 @@ export const Preview = {
     OFFER: 200,
   },
 };
+
+
+export const BlockClass = {
+  MAIN: 'place-card',
+  OFFER: 'property',
+};
+
+export const FavoriteIcon = {
+  MAIN: {
+    WIDTH: 18,
+    HEIGHT: 19,
+  },
+  OFFER: {
+    WIDTH: 31,
+    HEIGHT: 33,
+  },
+};

@@ -1,51 +1,35 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {useDispatch, useSelector} from 'react-redux';
-import {postFavorite} from '../../store/api-actions';
-import {getAuthorizationStatus} from '../../store/user/selectors';
-import {AppRoute, AuthorizationStatus} from '../../const';
-import {useHistory} from 'react-router-dom';
+import useFavoriteButton from '../../hooks/use-favorite-button';
+import {BlockClass, FavoriteIcon} from '../../const';
 
 
-function BookmarkButton({ id, isFavorite }) {
-  const [favoriteStatus, setFavoriteStatus] = useState(isFavorite);
-  const authorizationStatus = useSelector(getAuthorizationStatus);
-  const history = useHistory();
-
-  const dispatch = useDispatch();
-
-  const onClickBookmarkBtn = () => {
-
-
-    if (authorizationStatus !== AuthorizationStatus.AUTH) {
-      history.push(AppRoute.LOGIN);
-    } else {
-      dispatch(postFavorite(id, +!favoriteStatus));
-      setFavoriteStatus((state) => !state);
-    }
-  };
-
+function BookmarkButton({ id, isFavorite, screen }) {
+  const onClickBookmarkBtn = useFavoriteButton(id, isFavorite);
 
   return (
     <button
       className={
-        `place-card__bookmark-button ${favoriteStatus ? 'place-card__bookmark-button--active' : ''} button`
+        `${BlockClass[screen]}__bookmark-button ${isFavorite ? `${BlockClass[screen]}__bookmark-button--active` : ''} button`
       }
       type="button"
       onClick={onClickBookmarkBtn}
     >
-      <svg className="place-card__bookmark-icon" width="18" height="19">
+      <svg className={`${BlockClass[screen]}__bookmark-icon`} width={FavoriteIcon[screen].WIDTH} height={FavoriteIcon[screen].HEIGHT}>
         <use xlinkHref="#icon-bookmark"/>
       </svg>
       <span className="visually-hidden">
-        {favoriteStatus ? 'In bookmarks' : 'To bookmarks'}
+        {isFavorite ? 'In bookmarks' : 'To bookmarks'}
       </span>
     </button>
   );
 }
 
+BookmarkButton.defaultProps = {screen: Screen.MAIN};
+
 BookmarkButton.propTypes = {
   id: PropTypes.number.isRequired,
+  screen: PropTypes.string.isRequired,
   isFavorite: PropTypes.bool.isRequired,
 };
 

@@ -22,12 +22,8 @@ import {
 } from '../../../store/data/selectors';
 import {getAuthorizationStatus} from '../../../store/user/selectors';
 import {startLoadingStatus} from '../../../store/action';
+import {LOADING_STATE} from '../../../const';
 
-const LOADING_STATE = {
-  OFFER: 'isOfferLoading',
-  NEARBY: 'isNearbyLoading',
-  COMMENTS: 'isCommentsLoading',
-};
 
 function Offer(props) {
   const isOfferLoading = useSelector(getOfferLoadingStatus);
@@ -75,7 +71,7 @@ function Offer(props) {
   }
 
   let currentPlace;
-  if (offers.length) {
+  if (isDataLoaded) {
     currentPlace = offers.find((offer) => offer.id === currentID);
   } else {
     currentPlace = currentOffer;

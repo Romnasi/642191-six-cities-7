@@ -32,7 +32,7 @@ function PlaceFeatures({
         <BookmarkButton
           isFavorite={isFavorite}
           id={id}
-          screen={Screen.OFFER}
+          screen={Screen.CURRENT_OFFER}
         />
 
       </div>

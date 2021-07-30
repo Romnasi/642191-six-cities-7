@@ -6,7 +6,7 @@ import {
   loadComments,
   requireAuthorization,
   closeSession,
-  loadFavorites, updateOffer
+  loadFavorites, updateOffers
 } from './action';
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const';
 import {adaptCommentToClient, adaptOfferToClient} from '../utils/adapter';
@@ -78,10 +78,10 @@ export const postComment = (id, {comment, rating}) => (dispatch, _getState, api)
 );
 
 
-export const postFavorite = (id, FavoriteStatus) => (dispatch, _getState, api) => (
+export const postFavorite = (id, FavoriteStatus, screen) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.FAVORITE}/${id}/${FavoriteStatus}`)
     .then(({data}) => adaptOfferToClient(data))
-    .then((offer) => dispatch(updateOffer(offer)))
+    .then((offer) => dispatch(updateOffers({offer, screen})))
 );
 
 

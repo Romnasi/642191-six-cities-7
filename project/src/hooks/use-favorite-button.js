@@ -5,7 +5,7 @@ import {AppRoute, AuthorizationStatus} from '../const';
 import {postFavorite} from '../store/api-actions';
 
 
-const useFavoriteButton = (id, isFavorite) => {
+const useFavoriteButton = (id, isFavorite, screen) => {
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const history = useHistory();
 
@@ -15,7 +15,7 @@ const useFavoriteButton = (id, isFavorite) => {
     if (authorizationStatus !== AuthorizationStatus.AUTH) {
       history.push(AppRoute.LOGIN);
     } else {
-      dispatch(postFavorite(id, +!isFavorite));
+      dispatch(postFavorite(id, +!isFavorite, screen));
     }
   };
 

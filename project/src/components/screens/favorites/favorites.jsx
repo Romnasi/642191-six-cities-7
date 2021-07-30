@@ -5,7 +5,9 @@ import FavoritesList from '../../favorites-list/favorites-list';
 import FavoritesEmpty from '../../favorites-empty/favorites-empty';
 import {fetchFavorites} from '../../../store/api-actions';
 import {useDispatch, useSelector} from 'react-redux';
-import {getDataLoadedStatus, getFavoriteLoadingStatus, getFavorites, getOffers} from '../../../store/data/selectors';
+import {
+  getDataLoadedStatus, getFavoriteLoadingStatus, getFavoriteOffers, getFavorites
+} from '../../../store/data/selectors';
 import LoadingScreen from '../../loading-screen/loading-screen';
 import {getSortedByCitiesData} from '../../../utils/sort';
 
@@ -14,7 +16,8 @@ function Favorites () {
   const isDataLoaded = useSelector(getDataLoadedStatus);
   const isFavoriteLoading = useSelector(getFavoriteLoadingStatus);
   let favoriteOffers = useSelector(getFavorites);
-  const offers = useSelector(getOffers);
+
+  const filteredFavorites = useSelector(getFavoriteOffers);
 
   const dispatch = useDispatch();
 
@@ -32,7 +35,7 @@ function Favorites () {
   }
 
   if (isDataLoaded) {
-    favoriteOffers = offers.filter(({isFavorite}) => isFavorite);
+    favoriteOffers = filteredFavorites;
   }
 
   const isEmpty = favoriteOffers.length < 1;

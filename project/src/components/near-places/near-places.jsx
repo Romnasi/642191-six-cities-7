@@ -5,7 +5,7 @@ import offerProp from '../screens/main/offers.prop';
 
 function NearPlaces({nearPlaces}) {
   const nearPlaceItems = nearPlaces
-    .map(({id, ...other}) => <Card key={id.toString()} cardType={Screen.MAIN} {...other} id={id} />);
+    .map(({id, ...other}) => <Card key={id.toString()} cardType={Screen.OFFER} {...other} id={id} />);
 
   return (
     <section className="near-places places">

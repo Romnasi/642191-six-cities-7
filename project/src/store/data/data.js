@@ -5,9 +5,10 @@ import {
   loadOffer,
   loadOffers,
   startLoadingStatus,
-  updateOffer
+  updateOffers
 } from '../action';
 import {createReducer} from '@reduxjs/toolkit';
+import {updateArrayItem} from '../../utils/utils';
 
 const initialState = {
   offers: [],
@@ -48,12 +49,23 @@ const data = createReducer(initialState, (builder) => {
     .addCase(startLoadingStatus, (state, action) => {
       state[action.payload] = true;
     })
-    .addCase(updateOffer, (state, action) => {
-      const offers = state.offers;
-      const updatedOffer = action.payload;
+    .addCase(updateOffers, (state, action) => {
+      const updatedOffer = action.payload.offer;
       const id = updatedOffer.id;
-      const idx = offers.findIndex((offer) => offer.id === id);
-      state.offers = [...offers.slice(0, idx), updatedOffer, ...offers.slice(idx + 1)];
+
+      updateArrayItem(state, 'offers', id, updatedOffer);
+
+      switch (action.payload.screen) {
+        case 'OFFER':
+          updateArrayItem(state, 'nearbyOffers', id, updatedOffer);
+          break;
+        case 'FAVORITES':
+          updateArrayItem(state, 'favorites', id, updatedOffer);
+          break;
+        case 'CURRENT_OFFER':
+          state.currentOffer = updatedOffer;
+          break;
+      }
     });
 });
 

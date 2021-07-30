@@ -5,7 +5,8 @@ import {BlockClass, FavoriteIcon} from '../../const';
 
 
 function BookmarkButton({ id, isFavorite, screen }) {
-  const onClickBookmarkBtn = useFavoriteButton(id, isFavorite);
+  const onClickBookmarkBtn = useFavoriteButton(id, isFavorite, screen);
+
 
   return (
     <button

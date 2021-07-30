@@ -1,8 +1,10 @@
 import {useEffect} from 'react';
 
-const useOffers = (fetchOffers) => {
+const useOffers = (fetchOffers, isDataLoaded) => {
   useEffect(() => {
-    fetchOffers();
+    if (!isDataLoaded) {
+      fetchOffers();
+    }
   }, [fetchOffers]);
 };
 

@@ -16,6 +16,7 @@ export const Screen = {
   MAIN: 'MAIN',
   FAVORITES: 'FAVORITES',
   OFFER: 'OFFER',
+  CURRENT_OFFER: 'CURRENT_OFFER',
 };
 
 
@@ -106,16 +107,31 @@ export const Preview = {
 
 export const BlockClass = {
   MAIN: 'place-card',
-  OFFER: 'property',
+  OFFER: 'place-card',
+  CURRENT_OFFER: 'property',
+  FAVORITES: 'place-card',
+};
+
+
+const SmallIcon = {
+  WIDTH: 18,
+  HEIGHT: 19,
+};
+
+const BigIcon = {
+  WIDTH: 31,
+  HEIGHT: 33,
 };
 
 export const FavoriteIcon = {
-  MAIN: {
-    WIDTH: 18,
-    HEIGHT: 19,
-  },
-  OFFER: {
-    WIDTH: 31,
-    HEIGHT: 33,
-  },
+  MAIN: SmallIcon,
+  OFFER: SmallIcon,
+  CURRENT_OFFER: BigIcon,
+  FAVORITES: SmallIcon,
+};
+
+export const LOADING_STATE = {
+  OFFER: 'isOfferLoading',
+  NEARBY: 'isNearbyLoading',
+  COMMENTS: 'isCommentsLoading',
 };

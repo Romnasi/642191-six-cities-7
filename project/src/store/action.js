@@ -12,6 +12,7 @@ export const ActionType = {
   UPDATE_OFFERS: 'data/updateOffers',
   LOGOUT: 'user/logout',
   REDIRECT_TO_ROUTE: 'user/redirectToRoute',
+  ADD_USER_EMAIL: 'user/addUserEmail',
 };
 
 
@@ -62,4 +63,8 @@ export const loadFavorites = createAction(ActionType.LOAD_FAVORITES, (favorites)
 
 export const updateOffers = createAction(ActionType.UPDATE_OFFERS, (offer) => ({
   payload: offer,
+}));
+
+export const addUserEmail = createAction(ActionType.ADD_USER_EMAIL, (userEmail) => ({
+  payload: userEmail,
 }));

@@ -6,7 +6,7 @@ import {
   loadComments,
   requireAuthorization,
   closeSession,
-  loadFavorites, updateOffers
+  loadFavorites, updateOffers, addUserEmail
 } from './action';
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const';
 import {adaptCommentToClient, adaptOfferToClient} from '../utils/adapter';
@@ -61,14 +61,20 @@ export const fetchFavorites = () => (dispatch, _getState, api) => (
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(({data: {email}}) => {
+      dispatch(requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(addUserEmail(email));
+    })
     .catch(() => {})
 );
 
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
-    .then(({data}) => localStorage.setItem('token', data.token))
+    .then(({data}) => {
+      localStorage.setItem('token', data.token);
+      dispatch(addUserEmail(email));
+    })
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(AppRoute.ROOT)))
     .catch(() => toast(ERROR_TEXT))

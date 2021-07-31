@@ -1,6 +1,7 @@
 import React, {memo, useState} from 'react';
 import {Sorter} from '../../const';
 import PropTypes from 'prop-types';
+import sortListProp from './sort-list.prop';
 import SortButton from '../sort-button/sort-button';
 
 
@@ -18,6 +19,7 @@ function SortList({ activeSort, onSorterClick }) {
       <SortButton
         isListOpened={isListOpened}
         onSortBtnClick={onSortBtnClick}
+        activeSort={activeSort}
       />
 
       <ul className={`places__options places__options--custom ${isListOpened && 'places__options--opened'}`}>
@@ -45,8 +47,7 @@ function SortList({ activeSort, onSorterClick }) {
 }
 
 SortList.propTypes = {
-  activeSort: PropTypes.oneOf(Object.values(Sorter)
-    .map(({ID}) => ID)).isRequired,
+  activeSort: sortListProp,
   onSorterClick: PropTypes.func.isRequired,
 };
 

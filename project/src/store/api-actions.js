@@ -11,6 +11,7 @@ import {
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const';
 import {adaptCommentToClient, adaptOfferToClient} from '../utils/adapter';
 import {toast} from '../utils/toast';
+import {HttpCode} from '../const';
 
 const ERROR_TEXT = 'Something went wrong';
 
@@ -77,7 +78,13 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     })
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(AppRoute.ROOT)))
-    .catch(() => toast(ERROR_TEXT))
+    .catch((err) => {
+      if (err.response.status === HttpCode.BAD_REQUEST) {
+        throw err;
+      } else {
+        toast(ERROR_TEXT);
+      }
+    })
 );
 
 
@@ -85,7 +92,13 @@ export const postComment = (id, {comment, rating}) => (dispatch, _getState, api)
   api.post(`${APIRoute.COMMENTS}/${id}`, {comment, rating})
     .then(({data}) => data.map(adaptCommentToClient))
     .then((data) => dispatch(loadComments(data)))
-    .catch(() => toast(ERROR_TEXT))
+    .catch((err) => {
+      if (err.response.status === HttpCode.BAD_REQUEST) {
+        throw err;
+      } else {
+        toast(ERROR_TEXT);
+      }
+    })
 );
 
 
@@ -102,5 +115,3 @@ export const logout = () => (dispatch, _getState, api) => (
     .then(() => localStorage.removeItem('token'))
     .then(() => dispatch(closeSession()))
 );
-
-

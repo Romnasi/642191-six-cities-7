@@ -135,3 +135,8 @@ export const LOADING_STATE = {
   NEARBY: 'isNearbyLoading',
   COMMENTS: 'isCommentsLoading',
 };
+
+export const HttpCode = {
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+};

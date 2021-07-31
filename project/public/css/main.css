@@ -29,3 +29,20 @@
 .reviews__button-wrapper {
   position: relative;
 }
+
+body {
+  position: relative;
+}
+
+.toast-container {
+  position: absolute;
+  top: 0;
+}
+
+.toast-item {
+  margin: 5px;
+  padding: 5px 15px;
+
+  background-color: yellow;
+  border-radius: 10px;
+}

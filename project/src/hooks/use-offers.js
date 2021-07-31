@@ -5,7 +5,7 @@ const useOffers = (fetchOffers, isDataLoaded) => {
     if (!isDataLoaded) {
       fetchOffers();
     }
-  }, [fetchOffers]);
+  }, [fetchOffers, isDataLoaded]);
 };
 
 export default useOffers;

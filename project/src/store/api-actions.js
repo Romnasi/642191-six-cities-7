@@ -10,6 +10,9 @@ import {
 } from './action';
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const';
 import {adaptCommentToClient, adaptOfferToClient} from '../utils/adapter';
+import {toast} from '../utils/toast';
+
+const ERROR_TEXT = 'Something went wrong';
 
 
 export const fetchOffersList = () => (dispatch, _getState, api) => (
@@ -52,7 +55,7 @@ export const fetchFavorites = () => (dispatch, _getState, api) => (
       return data;
     })
     .then((data) => dispatch(loadFavorites(data)))
-    .catch(() => dispatch(redirectToRoute(AppRoute.NOT_FOUND)))
+    .catch(() => toast(ERROR_TEXT))
 );
 
 
@@ -68,6 +71,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     .then(({data}) => localStorage.setItem('token', data.token))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(AppRoute.ROOT)))
+    .catch(() => toast(ERROR_TEXT))
 );
 
 
@@ -75,6 +79,7 @@ export const postComment = (id, {comment, rating}) => (dispatch, _getState, api)
   api.post(`${APIRoute.COMMENTS}/${id}`, {comment, rating})
     .then(({data}) => data.map(adaptCommentToClient))
     .then((data) => dispatch(loadComments(data)))
+    .catch(() => toast(ERROR_TEXT))
 );
 
 
@@ -82,6 +87,7 @@ export const postFavorite = (id, FavoriteStatus, screen) => (dispatch, _getState
   api.post(`${APIRoute.FAVORITE}/${id}/${FavoriteStatus}`)
     .then(({data}) => adaptOfferToClient(data))
     .then((offer) => dispatch(updateOffers({offer, screen})))
+    .catch(() => toast(ERROR_TEXT))
 );
 
 

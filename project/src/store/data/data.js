@@ -65,6 +65,9 @@ const data = createReducer(initialState, (builder) => {
         case 'CURRENT_OFFER':
           state.currentOffer = updatedOffer;
           break;
+        default:
+          updateArrayItem(state, 'offers', id, updatedOffer);
+          break;
       }
     });
 });

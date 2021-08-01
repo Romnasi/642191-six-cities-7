@@ -8,7 +8,7 @@ import {logout} from '../../store/api-actions';
 function SignOutLink(props) {
   const dispatch = useDispatch();
 
-  const onLogoutBtnClick = () => {
+  const handleLogoutBtn = () => {
     dispatch(logout());
   };
 
@@ -17,7 +17,7 @@ function SignOutLink(props) {
       className="header__nav-link"
       onClick={(evt) => {
         evt.preventDefault();
-        onLogoutBtnClick();
+        handleLogoutBtn();
       }}
       to={AppRoute.ROOT}
     >

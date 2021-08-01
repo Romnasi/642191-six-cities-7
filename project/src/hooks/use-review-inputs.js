@@ -55,7 +55,7 @@ const useReviewInputs = (postUserComment) => {
       });
   };
 
-  return [isError400, isDisabled, formData, setFormData, onHandleSubmit];
+  return [isError400, isDisabled, formData, setFormData, formData.isLoading, onHandleSubmit];
 };
 
 export default useReviewInputs;

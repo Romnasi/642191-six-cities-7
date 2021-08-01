@@ -13,7 +13,7 @@ function ReviewForm(props) {
 
   const postUserComment = (id, {comment, rating}) => dispatch(postComment(id, {comment, rating}));
 
-  const [isError400, isDisabled, formData, setFormData, onHandleSubmit] = useReviewInputs(postUserComment);
+  const [isError400, isDisabled, formData, setFormData, isLoading, onHandleSubmit] = useReviewInputs(postUserComment);
 
 
   return (
@@ -39,6 +39,7 @@ function ReviewForm(props) {
                 id={`${rateIndex}-stars`}
                 type="radio"
                 checked={rateIndex === formData.rating}
+                disabled={isLoading && isDisabled}
                 onChange={() => {
                   setFormData({
                     ...formData,
@@ -67,6 +68,7 @@ function ReviewForm(props) {
         name="review"
         value={formData.comment}
         placeholder="Tell how was your stay, what you like and what can be improved"
+        disabled={isLoading && isDisabled}
         onChange={({target}) => {
           const value = target.value;
           setFormData({

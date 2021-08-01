@@ -20,6 +20,7 @@ export const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.HOTELS)
     .then(({data}) => data.map(adaptOfferToClient))
     .then((data) => dispatch(loadOffers(data)))
+    .catch(() => toast(ERROR_TEXT))
 );
 
 

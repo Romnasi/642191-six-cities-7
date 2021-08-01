@@ -11,8 +11,7 @@ function Card({
   cardType, title, type, price, previewImage, isPremium, rating, id, isFavorite,
   onListItemHover = () => {},
 }) {
-
-  const ratingWidth = convertRating(rating);
+  const ratingWidth = convertRating(Math.round(rating));
 
   const handleCardMouseOver = () => {
     onListItemHover(id);

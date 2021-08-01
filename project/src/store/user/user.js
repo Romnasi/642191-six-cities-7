@@ -4,7 +4,7 @@ import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.UNKNOWN,
-  userEmail: false,
+  userEmail: '',
 };
 
 

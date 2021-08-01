@@ -2,14 +2,14 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {useDispatch} from 'react-redux';
-import {closeSession} from '../../store/action';
+import {logout} from '../../store/api-actions';
 
 
 function SignOutLink(props) {
   const dispatch = useDispatch();
 
-  const logout = () => {
-    dispatch(closeSession());
+  const onLogoutBtnClick = () => {
+    dispatch(logout());
   };
 
   return (
@@ -17,7 +17,7 @@ function SignOutLink(props) {
       className="header__nav-link"
       onClick={(evt) => {
         evt.preventDefault();
-        logout();
+        onLogoutBtnClick();
       }}
       to={AppRoute.ROOT}
     >

@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import {AuthorizationStatus} from '../../const';
 import ReviewItem from '../review-item/review-item';
 
+const MAX_VISIBLE_REVIEWS = 10;
 
 function Reviews({reviews, authorizationStatus}) {
   let visibleReviews;
@@ -14,8 +15,8 @@ function Reviews({reviews, authorizationStatus}) {
   const reviewForSort = [...reviews];
   const sortedReviews = reviewForSort.sort(sortByDateDown);
 
-  if (reviewAmount > 10) {
-    const startVisibleReviews = reviewAmount - 10;
+  if (reviewAmount > MAX_VISIBLE_REVIEWS) {
+    const startVisibleReviews = reviewAmount - MAX_VISIBLE_REVIEWS;
     visibleReviews = sortedReviews.slice(startVisibleReviews);
   } else {
     visibleReviews = sortedReviews;

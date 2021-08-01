@@ -9,11 +9,19 @@ import ReviewItem from '../review-item/review-item';
 
 
 function Reviews({reviews, authorizationStatus}) {
+  let visibleReviews;
   const reviewAmount = reviews.length;
   const reviewForSort = [...reviews];
   const sortedReviews = reviewForSort.sort(sortByDateDown);
 
-  const reviewItems = sortedReviews.map((review) => {
+  if (reviewAmount > 10) {
+    const startVisibleReviews = reviewAmount - 10;
+    visibleReviews = sortedReviews.slice(startVisibleReviews);
+  } else {
+    visibleReviews = sortedReviews;
+  }
+
+  const reviewItems = visibleReviews.map((review) => {
     const {comment, date, id, rating, user: {name, avatarUrl}} = review;
     const ratingWidth = convertRating(rating);
 

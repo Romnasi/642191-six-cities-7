@@ -23,7 +23,7 @@ function Main(props) {
   const fetchOffers = useCallback(() => dispatch(fetchOffersList()), [dispatch]);
 
 
-  useOffers(fetchOffers);
+  useOffers(fetchOffers, isDataLoaded);
   const [selectedPoint, onListItemHover] = useSelectedPoint(currentOffers);
 
   if (!isDataLoaded) {

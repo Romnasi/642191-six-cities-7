@@ -16,6 +16,7 @@ export const Screen = {
   MAIN: 'MAIN',
   FAVORITES: 'FAVORITES',
   OFFER: 'OFFER',
+  CURRENT_OFFER: 'CURRENT_OFFER',
 };
 
 
@@ -101,4 +102,41 @@ export const Preview = {
     FAVORITES: 110,
     OFFER: 200,
   },
+};
+
+
+export const BlockClass = {
+  MAIN: 'place-card',
+  OFFER: 'place-card',
+  CURRENT_OFFER: 'property',
+  FAVORITES: 'place-card',
+};
+
+
+const SmallIcon = {
+  WIDTH: 18,
+  HEIGHT: 19,
+};
+
+const BigIcon = {
+  WIDTH: 31,
+  HEIGHT: 33,
+};
+
+export const FavoriteIcon = {
+  MAIN: SmallIcon,
+  OFFER: SmallIcon,
+  CURRENT_OFFER: BigIcon,
+  FAVORITES: SmallIcon,
+};
+
+export const LOADING_STATE = {
+  OFFER: 'isOfferLoading',
+  NEARBY: 'isNearbyLoading',
+  COMMENTS: 'isCommentsLoading',
+};
+
+export const HttpCode = {
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
 };

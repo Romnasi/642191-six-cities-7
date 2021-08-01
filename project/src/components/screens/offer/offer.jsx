@@ -22,12 +22,8 @@ import {
 } from '../../../store/data/selectors';
 import {getAuthorizationStatus} from '../../../store/user/selectors';
 import {startLoadingStatus} from '../../../store/action';
+import {LOADING_STATE} from '../../../const';
 
-const LOADING_STATE = {
-  OFFER: 'isOfferLoading',
-  NEARBY: 'isNearbyLoading',
-  COMMENTS: 'isCommentsLoading',
-};
 
 function Offer(props) {
   const isOfferLoading = useSelector(getOfferLoadingStatus);
@@ -67,7 +63,7 @@ function Offer(props) {
   );
 
 
-  const currentID = useParams().id;
+  const currentID = parseInt(useParams().id, 10);
   useOfferData(offers, currentID, fetchNearbyOffers, fetchOffer, fetchOfferComments);
 
   if ((!isDataLoaded && isOfferLoading) || isCommentsLoading || isNearbyLoading) {
@@ -75,8 +71,8 @@ function Offer(props) {
   }
 
   let currentPlace;
-  if (offers.length) {
-    currentPlace = offers.find((offer) => offer.id.toString() === currentID);
+  if (isDataLoaded) {
+    currentPlace = offers.find((offer) => offer.id === currentID);
   } else {
     currentPlace = currentOffer;
   }
@@ -111,6 +107,7 @@ function Offer(props) {
                 bedrooms={bedrooms}
                 maxAdults={maxAdults}
                 price={price}
+                id={currentID}
               />
 
               <Amenities goods={goods} />

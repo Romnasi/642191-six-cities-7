@@ -53,6 +53,7 @@ function Card({
           <BookmarkButton
             id={id}
             isFavorite={isFavorite}
+            screen={cardType}
           />
 
         </div>

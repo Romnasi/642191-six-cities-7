@@ -1,9 +1,10 @@
-import {closeSession, requireAuthorization} from '../action';
+import {addUserEmail, closeSession, requireAuthorization} from '../action';
 import {AuthorizationStatus} from '../../const';
 import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.UNKNOWN,
+  userEmail: false,
 };
 
 
@@ -14,6 +15,9 @@ const user = createReducer(initialState, (builder) => {
     })
     .addCase(closeSession, (state) => {
       state.authorizationStatus = AuthorizationStatus.NO_AUTH;
+    })
+    .addCase(addUserEmail, (state, action) => {
+      state.userEmail = action.payload;
     });
 });
 

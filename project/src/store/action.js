@@ -9,9 +9,10 @@ export const ActionType = {
   LOAD_COMMENTS: 'data/loadComments',
   LOAD_FAVORITES: 'data/loadFavorites',
   START_LOADING_STATUS: 'data/startLoadingStatus',
-  UPDATE_OFFER: 'data/updateOffer',
+  UPDATE_OFFERS: 'data/updateOffers',
   LOGOUT: 'user/logout',
   REDIRECT_TO_ROUTE: 'user/redirectToRoute',
+  ADD_USER_EMAIL: 'user/addUserEmail',
 };
 
 
@@ -60,6 +61,10 @@ export const loadFavorites = createAction(ActionType.LOAD_FAVORITES, (favorites)
   payload: favorites,
 }));
 
-export const updateOffer = createAction(ActionType.UPDATE_OFFER, (offer) => ({
+export const updateOffers = createAction(ActionType.UPDATE_OFFERS, (offer) => ({
   payload: offer,
+}));
+
+export const addUserEmail = createAction(ActionType.ADD_USER_EMAIL, (userEmail) => ({
+  payload: userEmail,
 }));

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {placeTypes, Screen} from '../../const';
-import {convertRating} from '../../utils/utils';
+import {capitalizeFirstLetter, convertRating} from '../../utils/utils';
 import {Link} from 'react-router-dom';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import {ScreenClass, Preview} from '../../const';
@@ -12,6 +12,7 @@ function Card({
   onListItemHover = () => {},
 }) {
   const ratingWidth = convertRating(Math.round(rating));
+  const typeWithCapitalLetter = capitalizeFirstLetter(type);
 
   const handleCardMouseOver = () => {
     onListItemHover(id);
@@ -69,7 +70,7 @@ function Card({
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{typeWithCapitalLetter}</p>
       </div>
     </article>
   );

@@ -1,5 +1,5 @@
 import {ui} from './ui';
-import {changeCity, ActionType} from '../action';
+import {changeCity} from '../action';
 
 
 describe('Reducer: ui', () => {
@@ -8,7 +8,7 @@ describe('Reducer: ui', () => {
       .toEqual({currentCity: 'Paris'});
   });
 
-  it('should change current city to the passed value', () => {
+  it('should change currentCity to a given value', () => {
     const state = {currentCity: 'Paris'};
 
     expect(ui(state, changeCity('Moscow')))

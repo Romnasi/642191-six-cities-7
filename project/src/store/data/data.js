@@ -9,6 +9,7 @@ import {
 } from '../action';
 import {createReducer} from '@reduxjs/toolkit';
 import {updateArrayItem} from '../../utils/utils';
+import {Screen} from '../../const';
 
 const initialState = {
   offers: [],
@@ -56,13 +57,13 @@ const data = createReducer(initialState, (builder) => {
       updateArrayItem(state, 'offers', id, updatedOffer);
 
       switch (action.payload.screen) {
-        case 'OFFER':
+        case Screen.OFFER:
           updateArrayItem(state, 'nearbyOffers', id, updatedOffer);
           break;
-        case 'FAVORITES':
+        case Screen.FAVORITES:
           updateArrayItem(state, 'favorites', id, updatedOffer);
           break;
-        case 'CURRENT_OFFER':
+        case Screen.CURRENT_OFFER:
           state.currentOffer = updatedOffer;
           break;
         default:

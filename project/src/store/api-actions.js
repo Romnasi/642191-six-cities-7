@@ -63,10 +63,8 @@ export const fetchFavorites = () => (dispatch, _getState, api) => (
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(({data: {email}}) => {
-      dispatch(requireAuthorization(AuthorizationStatus.AUTH));
-      dispatch(addUserEmail(email));
-    })
+    .then(({data: {email}}) => dispatch(addUserEmail(email)))
+    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .catch(() => {})
 );
 
@@ -104,8 +102,8 @@ export const postComment = (id, {comment, rating}) => (dispatch, _getState, api)
 );
 
 
-export const postFavorite = (id, FavoriteStatus, screen) => (dispatch, _getState, api) => (
-  api.post(`${APIRoute.FAVORITE}/${id}/${FavoriteStatus}`)
+export const postFavorite = (id, favoriteStatus, screen) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.FAVORITE}/${id}/${favoriteStatus}`)
     .then(({data}) => adaptOfferToClient(data))
     .then((offer) => dispatch(updateOffers({offer, screen})))
     .catch(() => toast(ERROR_TEXT))
